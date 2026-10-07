@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 3D Figurine Generator — Turn Your Photo into a 3D Figurine (Free)</title>
+<meta name="description" content="Free AI 3D figurine generator. Upload a selfie and see yourself as a chibi, realistic, pixel, or cyberpunk 3D figurine. Powered by Cloudflare Workers AI.">
+<meta name="keywords" content="ai 3d figurine, 3d figurine generator, chibi generator, ai character generator, photo to 3d">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta name="theme-color" content="#0f766e">
+
+<link rel="canonical" href="https://toolara.dev/ai-3d-figurine-generator/">
+<link rel="alternate" hreflang="en" href="https://toolara.dev/ai-3d-figurine-generator/">
+<link rel="alternate" hreflang="zh-Hans" href="https://toolara.dev/ai-3d-figurine-generator/zh/">
+<link rel="alternate" hreflang="x-default" href="https://toolara.dev/ai-3d-figurine-generator/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI 3D Figurine Generator — Turn Your Photo into a 3D Figurine">
+<meta property="og:description" content="Upload a selfie, get a 3D figurine in seconds.">
+<meta property="og:url" content="https://toolara.dev/ai-3d-figurine-generator/">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "AI 3D Figurine Generator",
+  "url": "https://toolara.dev/ai-3d-figurine-generator/",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Any",
+  "description": "Free AI tool that turns a photo into a 3D figurine style image.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="lang-switch">
+    <select id="langSelect" onchange="setLang(this.value)" aria-label="Language">
+      <option value="en">English</option>
+      <option value="zh">简体中文</option>
+    </select>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-badge">🧸 AI-powered</div>
+    <h1 data-i18n="title">AI 3D Figurine Generator</h1>
+    <p data-i18n="subtitle">Upload a photo. See yourself as a 3D figurine in seconds.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card">
+    <h2 class="visually-hidden" data-i18n="calcHeading">3D figurine generator</h2>
+
+    <p class="mode-desc" data-i18n="desc">Upload a front-facing photo with clear lighting. The AI will turn you into a 3D figurine.</p>
+
+    <label data-i18n="uploadLabel">Your photo</label>
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" id="fileInput" accept="image/*" style="display:none;">
+      <div class="upload-content">
+        <div class="upload-icon">📁</div>
+        <div class="upload-text" data-i18n="uploadText">Click to upload or drag here</div>
+        <div class="upload-hint" data-i18n="uploadHint">Front-facing portrait works best</div>
+      </div>
+    </div>
+
+    <div class="preview" id="preview" style="display:none;">
+      <img id="previewImg" alt="Preview">
+      <button class="remove-btn" onclick="clearImage()">✕</button>
+    </div>
+
+    <label data-i18n="styleLabel">Figurine style</label>
+    <div class="preset-grid" id="stylePresets">
+      <button class="preset-btn active" data-preset="chibi">Chibi</button>
+      <button class="preset-btn" data-preset="realistic">Realistic</button>
+      <button class="preset-btn" data-preset="pixel">Pixel</button>
+      <button class="preset-btn" data-preset="cyberpunk">Cyberpunk</button>
+    </div>
+
+    <button class="calc" type="button" id="generateBtn" onclick="generate()" data-i18n="calcBtn" disabled>Generate 3D figurine</button>
+
+    <div id="loading" class="loading" style="display:none;">
+      <div class="spinner"></div>
+      <div data-i18n="loadingText">Generating your figurine... (10-30 seconds)</div>
+    </div>
+
+    <div id="error" class="error" style="display:none;"></div>
+
+    <div id="result" role="region" aria-live="polite">
+      <div class="result-header">
+        <div class="result-label" data-i18n="resultLabel">Your 3D figurine</div>
+        <button class="copy-btn" type="button" onclick="downloadResult()" data-i18n="downloadBtn">Download</button>
+      </div>
+      <div class="result-preview">
+        <img id="resultImg" alt="Result">
+      </div>
+      <div class="result-disclaimer" data-i18n="resultDisclaimer">AI-generated image. Results are for entertainment only. Review before sharing.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-i18n="whatIsTitle">What does this tool do?</h2>
+    <p data-i18n="whatIsText">This tool uses AI to turn your photo into a 3D figurine style image. Pick a style — chibi, realistic, pixel, or cyberpunk — and see how you'd look as a collectible figure. It's a fun way to visualize yourself in a new format.</p>
+  </section>
+
+  <section>
+    <h2 data-i18n="faqTitle">Frequently asked questions</h2>
+    <h3 data-i18n="faq1q">Is this tool free?</h3>
+    <p data-i18n="faq1a">Yes. It runs on Cloudflare Workers AI with a free daily quota. Normal use won't hit limits.</p>
+
+    <h3 data-i18n="faq2q">Is my photo stored?</h3>
+    <p data-i18n="faq2a">No. Your photo is processed in memory and discarded immediately after the result is generated. Nothing is stored.</p>
+
+    <h3 data-i18n="faq3q">What kind of photo works best?</h3>
+    <p data-i18n="faq3a">Front-facing portraits with clear lighting and a plain background work best. Avoid blurry, low-light, or heavily filtered images.</p>
+
+    <h3 data-i18n="faq4q">Why does generation sometimes fail?</h3>
+    <p data-i18n="faq4a">The AI model has a content filter that occasionally misidentifies harmless images. If generation fails, try a different photo with a simpler background.</p>
+
+    <h3 data-i18n="faq5q">Can I use the result commercially?</h3>
+    <p data-i18n="faq5a">Yes. The tool doesn't add watermarks. You own the result, but make sure you have the rights to the original photo.</p>
+
+    <div class="disclaimer" data-i18n="disclaimer"><strong>Note:</strong> AI-generated images are for entertainment. Do not use them for official identification or commercial licensing without review.</div>
+  </section>
+</main>
+
+<footer class="footer" data-i18n="footer">Runs on Cloudflare Workers AI. Your photo is not stored.</footer>
+
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
