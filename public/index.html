@@ -39,6 +39,18 @@
 </script>
 
 <link rel="stylesheet" href="/css/style.css">
+<style id="footer-groups-css">
+.site-footer-grid{grid-template-columns:minmax(0,0.85fr) minmax(0,2.65fr)!important;gap:40px!important}
+.site-footer-column:nth-child(2){grid-row:1/span 2!important}
+.site-footer-column:nth-child(3){grid-column:1!important;grid-row:2!important}
+.site-footer-explore{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 20px;align-content:start}
+.site-footer-group{min-width:0}
+.site-footer-group-title{margin:0 0 9px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.16);color:#f8fafc;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;opacity:.75}
+.site-footer-group .site-footer-links{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:7px;font-size:0.85rem;line-height:1.4}
+@media(max-width:960px){.site-footer-grid{grid-template-columns:1fr!important;gap:30px!important}
+.site-footer-column:nth-child(2){grid-row:auto!important}.site-footer-column:nth-child(3){grid-column:auto!important;grid-row:auto!important}
+.site-footer-explore{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
 </head>
 <body>
 <header class="site-header"><div class="site-header-inner"><a class="site-brand" href="/" aria-label="ai-3d-figurine-generator"><span class="site-brand-mark" aria-hidden="true">3D</span><span class="site-brand-name" data-i18n="title"></span></a><nav class="site-nav" aria-label="Site navigation"><select id="langSelect" onchange="setLang(this.value)" aria-label="Language">
@@ -140,14 +152,7 @@
 <p class="site-footer-site-name" data-i18n="title">AI 3D Figurine Generator</p>
 <p class="site-footer-description" data-i18n="subtitle">Upload a photo. See yourself as a 3D figurine in seconds.</p>
 </section>
-<section class="site-footer-column"><h2 class="site-footer-heading">Explore</h2><nav class="site-footer-links" aria-label="Explore sites"><a href="https://humanize.toolara.dev/">AI Humanizer</a>
-<a href="https://summarize.toolara.dev/">AI Summarizer</a>
-<a href="https://background.toolara.dev/">Background Remover</a>
-<a href="https://music.toolara.dev/">AI Music</a>
-<a href="https://gfr.toolara.dev/">GFR Calculator</a>
-<a href="https://dc-pay.toolara.dev/">DC Paycheck</a>
-<a href="https://paypal.toolara.dev/">PayPal Fees</a>
-<a href="https://devtools.toolara.dev/">Code Tools</a></nav></section>
+<section class="site-footer-column"><div class="site-footer-explore"><div class="site-footer-group"><h2 class="site-footer-group-title">AI writing</h2><nav class="site-footer-links" aria-label="AI writing sites"><a href="https://humanize.toolara.dev/">AI Humanizer</a><a href="https://summarize.toolara.dev/">AI Summarizer</a><a href="https://emailreply.toolara.dev/">AI Email Reply</a><a href="https://coverletter.toolara.dev/">AI Cover Letter</a><a href="https://blogoutline.toolara.dev/">AI Blog Outline</a><a href="https://productcopy.toolara.dev/">AI Product Copy</a><a href="https://captions.toolara.dev/">AI Social Captions</a></nav></div><div class="site-footer-group"><h2 class="site-footer-group-title">Money &amp; sellers</h2><nav class="site-footer-links" aria-label="Money &amp; sellers sites"><a href="https://dc-pay.toolara.dev/">DC Paycheck</a><a href="https://salary.toolara.dev/">Salary to Hourly</a><a href="https://freelance.toolara.dev/">Freelance Rate</a><a href="https://subscriptions.toolara.dev/">Subscription Tracker</a><a href="https://etsy.toolara.dev/">Etsy Fees</a><a href="https://ebay.toolara.dev/">eBay Fees</a><a href="https://paypal.toolara.dev/">PayPal Fees</a><a href="https://invoices.toolara.dev/">Invoice Reminder</a></nav></div><div class="site-footer-group"><h2 class="site-footer-group-title">Home, health &amp; craft</h2><nav class="site-footer-links" aria-label="Home, health &amp; craft sites"><a href="https://gfr.toolara.dev/">GFR Calculator</a><a href="https://crcl.toolara.dev/">Creatinine Clearance</a><a href="https://roof.toolara.dev/">Roof Pitch</a><a href="https://deck.toolara.dev/">Deck Material</a><a href="https://yarn.toolara.dev/">Yarn Calculator</a><a href="https://calligraphy.toolara.dev/">Calligraphy Ink</a><a href="https://flytying.toolara.dev/">Fly Tying</a><a href="https://sourdough.toolara.dev/">Sourdough Hydration</a><a href="https://devtools.toolara.dev/">Code Tools</a></nav></div><div class="site-footer-group"><h2 class="site-footer-group-title">Images &amp; creative</h2><nav class="site-footer-links" aria-label="Images &amp; creative sites"><a href="https://background.toolara.dev/">Background Remover</a><a href="https://creative.toolara.dev/">Creative Generator</a></nav></div><div class="site-footer-group"><h2 class="site-footer-group-title">Music &amp; audio</h2><nav class="site-footer-links" aria-label="Music &amp; audio sites"><a href="https://music.toolara.dev/">Toolara Music</a><a href="https://audio.toolara.dev/">AI Audio Tool</a><a href="https://podcast.toolara.dev/">Podcast Show Notes</a></nav></div></div></section>
 <section class="site-footer-column"><h2 class="site-footer-heading">Contact</h2><p class="site-footer-contact"><a href="mailto:hello@toolara.dev">hello@toolara.dev</a></p></section>
 </div>
 <div class="site-footer-bottom"><p class="site-footer-privacy" data-i18n="footer">Runs on Cloudflare Workers AI. Your photo is not stored.</p></div>
