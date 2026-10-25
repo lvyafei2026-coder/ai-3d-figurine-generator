@@ -52,23 +52,21 @@
 .site-footer-explore{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 <style id="fc-cloud-css">
-.fc-clouds{display:grid;gap:18px}
-.fc-cat{border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px 16px;background:rgba(255,255,255,0.02)}
-.fc-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
-.fc-chip{display:inline-flex;align-items:center;gap:7px;font-size:0.72rem;font-weight:700;color:#fff;padding:4px 12px;border-radius:999px}
-.fc-chip::before{content:"";width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.85)}
-.fc-chip.calc{background:linear-gradient(120deg,#1d4ed8,#3b82f6)}
-.fc-chip.gen{background:linear-gradient(120deg,#6d28d9,#a855f7)}
-.fc-chip.dev{background:linear-gradient(120deg,#047857,#10b981)}
-.fc-chip .n{opacity:0.75;font-weight:600}
-.fc-desc{font-size:0.72rem;color:#7c8593}
-.fc-cloud{display:flex;flex-wrap:wrap;gap:7px}
-.fc-cloud a{display:inline-flex;align-items:center;gap:6px;font-size:0.76rem;font-weight:600;color:#c3cad4;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:4px 11px;transition:all 0.15s}
-.fc-cloud a:hover{color:#fff;background:rgba(59,130,246,0.18);border-color:rgba(59,130,246,0.45);text-decoration:none}
-.fc-cloud a .em{font-size:0.8rem}
-.fc-cloud a.fc-new{border-color:rgba(34,197,94,0.4)}
-.fc-cloud a.fc-new::after{content:"NEW";font-size:0.52rem;font-weight:800;letter-spacing:0.04em;color:#4ade80}
-@media(max-width:760px){.fc-cat{padding:12px 12px}}
+/* Footer tool columns - Linear style (design v3-A) */
+.site-footer-grid{grid-template-columns:1.05fr 1.35fr 1.35fr 0.55fr !important;gap:44px !important}
+/* 覆盖子站旧版 nth-child 网格定位残留 */
+.site-footer .site-footer-column:nth-child(2),.site-footer .site-footer-column:nth-child(3),.site-footer .site-footer-column:nth-child(4){grid-row:auto !important;grid-column:auto !important;display:block !important}
+.site-footer .fa-h4{font-size:0.8rem;font-weight:600;color:#eceef0;margin:0 0 16px;letter-spacing:-0.005em}
+.site-footer .fa-h4 .n{color:#565b63;font-weight:500;margin-left:6px;font-size:0.74rem}
+.site-footer ul.fa-list{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
+.site-footer ul.fa-list.single{columns:1}
+.site-footer ul.fa-list li{margin-bottom:11px;break-inside:avoid}
+.site-footer ul.fa-list a{font-size:0.8rem;color:#83898f;text-decoration:none;transition:color 0.12s;white-space:nowrap}
+.site-footer ul.fa-list a:hover{color:#f0f2f4}
+.site-footer ul.fa-list a .fa-new{color:#46a758;font-size:0.6rem;font-weight:700;letter-spacing:0.06em;margin-left:6px}
+.site-footer .fa-contact{margin-top:18px}
+@media(max-width:960px){.site-footer-grid{grid-template-columns:1fr 1fr !important;gap:32px !important}}
+@media(max-width:640px){.site-footer-grid{grid-template-columns:1fr !important;gap:26px !important}}
 </style></head>
 <body>
 <header class="site-header"><div class="site-header-inner"><a class="site-brand" href="/" aria-label="ai-3d-figurine-generator"><span class="site-brand-mark" aria-hidden="true">3D</span><span class="site-brand-name" data-i18n="title"></span></a><nav class="site-nav" aria-label="Site navigation"><select id="langSelect" onchange="setLang(this.value)" aria-label="Language">
@@ -164,15 +162,11 @@
 
 <footer class="footer site-footer">
 <div class="site-footer-inner">
-<div class="site-footer-grid">
-<section class="site-footer-column">
+<div class="site-footer-grid"><section class="site-footer-column">
 <a class="site-footer-wordmark" href="https://toolara.dev/" aria-label="toolara.dev">toolara<span class="tld">.dev</span></a>
 <p class="site-footer-site-name" data-i18n="title">AI 3D Figurine Generator</p>
 <p class="site-footer-description" data-i18n="subtitle">Upload a photo. See yourself as a 3D figurine in seconds.</p>
-</section>
-<section class="site-footer-column"><div class="fc-clouds"><div class="fc-cat"><div class="fc-head"><span class="fc-chip calc">Calculators <span class="n">15</span></span><span class="fc-desc">Health · Money · Seller · Home · Crafts · Baking</span></div><div class="fc-cloud"><a href="https://gfr.toolara.dev/"><span class="em">🩺</span>GFR Calculator</a><a href="https://crcl.toolara.dev/"><span class="em">💊</span>Cockcroft-Gault</a><a href="https://dc-pay.toolara.dev/"><span class="em">💵</span>DC Paycheck</a><a href="https://salary.toolara.dev/"><span class="em">📊</span>Salary to Hourly</a><a href="https://freelance.toolara.dev/"><span class="em">🎯</span>Freelance Rate</a><a href="https://subscriptions.toolara.dev/"><span class="em">📋</span>Subscription Tracker</a><a href="https://etsy.toolara.dev/"><span class="em">🛍️</span>Etsy Fees</a><a href="https://ebay.toolara.dev/"><span class="em">🏷️</span>eBay Fees</a><a href="https://paypal.toolara.dev/"><span class="em">💳</span>PayPal Fees</a><a href="https://roof.toolara.dev/"><span class="em">🏗️</span>Roof Pitch</a><a href="https://deck.toolara.dev/"><span class="em">🔨</span>Deck Material</a><a href="https://yarn.toolara.dev/"><span class="em">🧶</span>Yarn Calculator</a><a href="https://calligraphy.toolara.dev/"><span class="em">🖋️</span>Calligraphy Ink</a><a href="https://flytying.toolara.dev/"><span class="em">🪝</span>Fly Tying</a><a href="https://sourdough.toolara.dev/"><span class="em">🍞</span>Sourdough Hydration</a></div></div><div class="fc-cat"><div class="fc-head"><span class="fc-chip gen">Generators <span class="n">13</span></span><span class="fc-desc">AI Writing · Images · Audio · Business</span></div><div class="fc-cloud"><a href="https://humanize.toolara.dev/"><span class="em">✨</span>AI Humanizer</a><a href="https://summarize.toolara.dev/"><span class="em">📝</span>AI Summarizer</a><a href="https://emailreply.toolara.dev/"><span class="em">✉️</span>AI Email Reply</a><a href="https://coverletter.toolara.dev/"><span class="em">📄</span>AI Cover Letter</a><a href="https://blogoutline.toolara.dev/"><span class="em">✍️</span>AI Blog Outline</a><a href="https://productcopy.toolara.dev/"><span class="em">🛍️</span>AI Product Copy</a><a href="https://captions.toolara.dev/"><span class="em">📱</span>AI Social Captions</a><a href="https://background.toolara.dev/"><span class="em">🖼️</span>Background Remover</a><a href="https://creative.toolara.dev/" class="fc-new"><span class="em">🎨</span>Creative Generator</a><a href="https://music.toolara.dev/" class="fc-new"><span class="em">🎵</span>AI Music</a><a href="https://audio.toolara.dev/" class="fc-new"><span class="em">🎧</span>AI Audio Tool</a><a href="https://invoices.toolara.dev/"><span class="em">📧</span>Invoice Reminder</a><a href="https://podcast.toolara.dev/"><span class="em">🎙️</span>Podcast Show Notes</a></div></div><div class="fc-cat"><div class="fc-head"><span class="fc-chip dev">Developer <span class="n">1</span></span></div><div class="fc-cloud"><a href="https://devtools.toolara.dev/"><span class="em">💻</span>Code Tools</a></div></div></div></section>
-<section class="site-footer-column"><h2 class="site-footer-heading">Contact</h2><p class="site-footer-contact"><a href="mailto:hello@toolara.dev">hello@toolara.dev</a></p></section>
-</div>
+<p class="site-footer-contact fa-contact"><a href="mailto:hello@toolara.dev">hello@toolara.dev</a></p></section><section class="site-footer-column"><h4 class="fa-h4">Calculators <span class="n">15</span></h4><ul class="fa-list"><li><a href="https://gfr.toolara.dev/">GFR Calculator</a></li><li><a href="https://crcl.toolara.dev/">Cockcroft-Gault</a></li><li><a href="https://dc-pay.toolara.dev/">DC Paycheck</a></li><li><a href="https://salary.toolara.dev/">Salary to Hourly</a></li><li><a href="https://freelance.toolara.dev/">Freelance Rate</a></li><li><a href="https://subscriptions.toolara.dev/">Subscription Tracker</a></li><li><a href="https://etsy.toolara.dev/">Etsy Fees</a></li><li><a href="https://ebay.toolara.dev/">eBay Fees</a></li><li><a href="https://paypal.toolara.dev/">PayPal Fees</a></li><li><a href="https://roof.toolara.dev/">Roof Pitch</a></li><li><a href="https://deck.toolara.dev/">Deck Material</a></li><li><a href="https://yarn.toolara.dev/">Yarn Calculator</a></li><li><a href="https://calligraphy.toolara.dev/">Calligraphy Ink</a></li><li><a href="https://flytying.toolara.dev/">Fly Tying</a></li><li><a href="https://sourdough.toolara.dev/">Sourdough Hydration</a></li></ul></section><section class="site-footer-column"><h4 class="fa-h4">Generators <span class="n">13</span></h4><ul class="fa-list"><li><a href="https://humanize.toolara.dev/">AI Humanizer</a></li><li><a href="https://summarize.toolara.dev/">AI Summarizer</a></li><li><a href="https://emailreply.toolara.dev/">AI Email Reply</a></li><li><a href="https://coverletter.toolara.dev/">AI Cover Letter</a></li><li><a href="https://blogoutline.toolara.dev/">AI Blog Outline</a></li><li><a href="https://productcopy.toolara.dev/">AI Product Copy</a></li><li><a href="https://captions.toolara.dev/">AI Social Captions</a></li><li><a href="https://background.toolara.dev/">Background Remover</a></li><li><a href="https://creative.toolara.dev/">Creative Generator<span class="fa-new">NEW</span></a></li><li><a href="https://music.toolara.dev/">AI Music<span class="fa-new">NEW</span></a></li><li><a href="https://audio.toolara.dev/">AI Audio Tool<span class="fa-new">NEW</span></a></li><li><a href="https://invoices.toolara.dev/">Invoice Reminder</a></li><li><a href="https://podcast.toolara.dev/">Podcast Show Notes</a></li></ul></section><section class="site-footer-column"><h4 class="fa-h4">Developer <span class="n">1</span></h4><ul class="fa-list single"><li><a href="https://devtools.toolara.dev/">Code Tools</a></li></ul></section></div>
 <div class="site-footer-bottom"><p class="site-footer-privacy" data-i18n="footer">Runs on Cloudflare Workers AI. Your photo is not stored.</p></div>
 </div>
 </footer>
