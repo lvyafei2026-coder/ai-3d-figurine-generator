@@ -60,6 +60,24 @@ const SCENE_PROMPTS = {
   gaming: 'on a desk in a gaming room, blurred RGB-lit monitor and keyboard behind, cool neon ambient light'
 };
 
+// 全局每日生成上限：账户 Workers AI 免费层 10,000 neurons/天（music 站封面同账户共享）。
+// flux-2-klein-4b 1024x1024 实测单张约 250-400 neurons，留余量给 music，日限 25 张。
+const DAILY_LIMIT = 25;
+
+function todayKey() {
+  return 'daily:' + new Date().toISOString().slice(0, 10);
+}
+
+async function checkDailyQuota(env) {
+  const key = todayKey();
+  const current = parseInt((await env.QUOTA_KV.get(key)) || '0', 10);
+  if (current >= DAILY_LIMIT) {
+    return { ok: false, current };
+  }
+  await env.QUOTA_KV.put(key, String(current + 1), { expirationTtl: 172800 });
+  return { ok: true, current };
+}
+
 async function handleGenerate(request, env) {
   try {
     const formData = await request.formData();
@@ -79,6 +97,14 @@ async function handleGenerate(request, env) {
     const stylePrompt = STYLE_PROMPTS[styleKey] || STYLE_PROMPTS.actionfigure;
     const scenePrompt = SCENE_PROMPTS[sceneKey] || SCENE_PROMPTS.studio;
     const finalPrompt = stylePrompt + ', ' + scenePrompt;
+
+    const quota = await checkDailyQuota(env);
+    if (!quota.ok) {
+      return json({
+        error: "Today's free quota is used up. Please come back tomorrow.",
+        code: 'QUOTA_EXCEEDED'
+      }, 429);
+    }
 
     // 组装 multipart
     const apiForm = new FormData();
@@ -113,6 +139,13 @@ async function handleGenerate(request, env) {
       code: err.code,
       name: err.name
     });
+    // Workers AI 免费层日配额耗尽（4006 neurons exhausted）
+    if (String(err.message || '').includes('4006') || err.code === 4006) {
+      return json({
+        error: "Today's free quota is used up. Please come back tomorrow.",
+        code: 'QUOTA_EXCEEDED'
+      }, 429);
+    }
     return json({
       error: 'Processing failed.',
       detail: err.message,

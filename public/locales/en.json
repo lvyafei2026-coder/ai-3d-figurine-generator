@@ -88,6 +88,7 @@
   "errGeneric": "Generation failed. Please try again.",
   "errNetwork": "Network error. Please try again.",
   "errRateLimit": "Too many requests. Please wait a minute.",
+  "errQuota": "Today's free quota is used up. Please come back tomorrow.",
   "sceneLabel": "Display scene",
   "sceneStudio": "Studio",
   "sceneShelf": "Shelf",

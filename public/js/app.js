@@ -179,7 +179,13 @@ async function generate() {
 
     if (res.status === 429) {
       setStage('preview');
-      showError(tr.errRateLimit || 'Too many requests. Please wait a minute.');
+      let code429 = '';
+      try { code429 = (await res.json()).code || ''; } catch (e) {}
+      if (code429 === 'QUOTA_EXCEEDED') {
+        showError(tr.errQuota || "Today's free quota is used up. Please come back tomorrow.");
+      } else {
+        showError(tr.errRateLimit || 'Too many requests. Please wait a minute.');
+      }
       return;
     }
 
