@@ -99,6 +99,7 @@ async function handleFile(file) {
   previewThumb.src = url;
   previewImg.src = url;
   preview.style.display = 'flex';
+  uploadZone.style.display = 'none';
   generateBtn.disabled = false;
   errorEl.style.display = 'none';
   setStage('preview');
@@ -136,6 +137,7 @@ function clearImage() {
   selectedFile = null;
   fileInput.value = '';
   preview.style.display = 'none';
+  uploadZone.style.display = '';
   previewImg.removeAttribute('src');
   resultImg.removeAttribute('src');
   generateBtn.disabled = true;
