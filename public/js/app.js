@@ -1,5 +1,6 @@
 let selectedFile = null;
 let currentPreset = 'actionfigure';
+let currentScene = 'studio';
 
 const uploadZone = document.getElementById('uploadZone');
 const fileInput = document.getElementById('fileInput');
@@ -58,6 +59,22 @@ document.querySelectorAll('#stylePresets .preset-btn').forEach(btn => {
 // 右侧示例卡：点图即选风格
 document.querySelectorAll('.ex-card').forEach(card => {
   card.addEventListener('click', () => selectStyle(card.dataset.preset));
+});
+
+// 场景切换：左栏选中态 + 右侧示例网格换图
+function selectScene(scene) {
+  currentScene = scene;
+  document.querySelectorAll('#scenePresets .scene-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.scene === scene));
+  document.querySelectorAll('.ex-card').forEach(c => {
+    const img = c.querySelector('img');
+    const m = (img.getAttribute('src') || '').match(/\/examples\/[a-z]+\/([a-z]+\.jpg)$/);
+    if (m) img.src = '/examples/' + scene + '/' + m[1];
+  });
+}
+
+document.querySelectorAll('#scenePresets .scene-btn').forEach(btn => {
+  btn.addEventListener('click', () => selectScene(btn.dataset.scene));
 });
 
 function backToPreview() {
@@ -141,6 +158,7 @@ async function generate() {
   try {
     const formData = new FormData();
     formData.append('style', currentPreset);
+    formData.append('scene', currentScene);
     formData.append('image_0', selectedFile);
 
     const res = await fetch(base + '/api/generate', {

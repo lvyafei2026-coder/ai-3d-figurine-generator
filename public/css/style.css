@@ -118,6 +118,15 @@ label { display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 6px
 .preset-btn:hover { border-color: var(--accent); color: var(--navy); }
 .preset-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
+/* 展示场景：三张带图小卡 */
+.scene-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 18px; }
+.scene-btn { padding: 0; border: 2px solid var(--border); background: #fff; border-radius: 10px; overflow: hidden; cursor: pointer; font-family: inherit; transition: border-color 0.15s, box-shadow 0.15s; }
+.scene-btn img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: #f1f5f5; }
+.scene-btn span { display: block; padding: 5px 4px; font-size: 0.72rem; font-weight: 600; color: var(--text); text-align: center; }
+.scene-btn:hover { border-color: var(--accent); }
+.scene-btn.active { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.18); }
+.scene-btn.active span { color: var(--accent); }
+
 button.calc { width: 100%; padding: 15px; background: var(--accent); color: #fff; border: none; border-radius: 9px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.15s; font-family: inherit; margin-top: auto; }
 button.calc:hover:not(:disabled) { background: var(--accent-dark); }
 button.calc:disabled { opacity: 0.5; cursor: not-allowed; }

@@ -38,19 +38,27 @@ async function handleApi(request, env, url) {
 }
 
 // 提示词与页面上「Action figure prompt ideas」一节展示的文本必须一致（对用户可见=可复现）
+// 结构：风格只管人物造型，背景一律交给场景（scene），两者拼接后再送模型
 const STYLE_PROMPTS = {
-  actionfigure: 'the person as a collectible action figure in a clear blister pack on a printed cardboard card back, full body, articulated joints, 6-inch scale, product photography, studio lighting, high detail',
-  doll: 'the person as a soft vinyl doll, large glossy eyes, pastel outfit, smooth matte skin, studio lighting, plain background, single object, high detail',
-  chibi: '3D chibi figurine of the person, cute style, big head, small body, smooth plastic texture, studio lighting, plain white background, product photography, high detail, single object',
-  realistic: 'Realistic 3D sculpture of the person, marble texture, museum lighting, plain neutral background, single object, front view, high detail',
-  pixel: 'Pixel art 3D figurine of the person, voxel style, isometric view, soft shadows, plain background, single object',
-  cyberpunk: 'Cyberpunk style 3D figurine of the person, neon accents, metallic texture, dark background, studio lighting, single object, high detail'
+  actionfigure: 'the person as a collectible action figure in a clear blister pack on a printed cardboard card back, full body, articulated joints, 6-inch scale, product photography, high detail',
+  doll: 'the person as a soft vinyl doll, large glossy eyes, pastel outfit, smooth matte skin, single object, high detail',
+  chibi: '3D chibi figurine of the person, cute style, big head, small body, smooth plastic texture, product photography, high detail, single object',
+  realistic: 'Realistic 3D sculpture of the person, marble texture, museum lighting, single object, front view, high detail',
+  pixel: 'Pixel art 3D figurine of the person, voxel style, isometric view, soft shadows, single object',
+  cyberpunk: 'Cyberpunk style 3D figurine of the person, neon accents, metallic texture, single object, high detail'
+};
+
+const SCENE_PROMPTS = {
+  studio: 'plain seamless light gray studio backdrop, soft even product lighting',
+  shelf: 'standing on a wooden collector shelf, blurred rows of collectible figures behind, warm ambient room light',
+  gaming: 'on a desk in a gaming room, blurred RGB-lit monitor and keyboard behind, cool neon ambient light'
 };
 
 async function handleGenerate(request, env) {
   try {
     const formData = await request.formData();
     const styleKey = formData.get('style') || 'actionfigure';
+    const sceneKey = formData.get('scene') || 'studio';
     const image0 = formData.get('image_0');
 
     if (!image0 || !(image0 instanceof File)) {
@@ -63,10 +71,12 @@ async function handleGenerate(request, env) {
     }
 
     const stylePrompt = STYLE_PROMPTS[styleKey] || STYLE_PROMPTS.actionfigure;
+    const scenePrompt = SCENE_PROMPTS[sceneKey] || SCENE_PROMPTS.studio;
+    const finalPrompt = stylePrompt + ', ' + scenePrompt;
 
     // 组装 multipart
     const apiForm = new FormData();
-    apiForm.append('prompt', stylePrompt);
+    apiForm.append('prompt', finalPrompt);
     apiForm.append('width', '1024');
     apiForm.append('height', '1024');
 

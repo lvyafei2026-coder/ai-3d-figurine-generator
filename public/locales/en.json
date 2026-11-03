@@ -43,7 +43,7 @@
   "whatIsTitle": "What does this tool do?",
   "whatIsText": "This tool turns your photo into a collectible figure. Pick a style — action figure in blister packaging, 3D figurine, doll, chibi, realistic, pixel, or cyberpunk — and see how you'd look as a collectible. It's a fun way to preview yourself as a figure before you commission or print one.",
   "afTitle": "Action figure prompt ideas",
-  "afIntro": "You don't write a prompt here — you pick a preset and upload a photo. If you want to reproduce these looks in another tool, these are the exact prompts this one uses:",
+  "afIntro": "You don't write a prompt here — you pick a style and a scene, then upload a photo. The final prompt is style + scene combined. If you want to reproduce these looks in another tool, these are the exact prompts this one uses:",
   "af1t": "Action figure (boxed collectible)",
   "af2t": "Doll (soft vinyl)",
   "af3t": "Chibi figurine",
@@ -74,5 +74,10 @@
   "errNoFile": "Please upload a photo first.",
   "errGeneric": "Generation failed. Please try again.",
   "errNetwork": "Network error. Please try again.",
-  "errRateLimit": "Too many requests. Please wait a minute."
+  "errRateLimit": "Too many requests. Please wait a minute.",
+  "sceneLabel": "Display scene",
+  "sceneStudio": "Studio",
+  "sceneShelf": "Shelf",
+  "sceneGaming": "Gaming",
+  "afSceneT": "Scene suffixes"
 }

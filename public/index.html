@@ -167,6 +167,22 @@
         <button class="preset-btn" data-preset="cyberpunk" data-i18n="presetCyberpunk">Cyberpunk</button>
       </div>
 
+      <label data-i18n="sceneLabel">Display scene</label>
+      <div class="scene-grid" id="scenePresets">
+        <button class="scene-btn active" data-scene="studio" type="button">
+          <img src="/examples/studio/actionfigure.jpg" alt="Studio scene example" width="300" height="300" loading="lazy">
+          <span data-i18n="sceneStudio">Studio</span>
+        </button>
+        <button class="scene-btn" data-scene="shelf" type="button">
+          <img src="/examples/shelf/actionfigure.jpg" alt="Collector shelf scene example" width="300" height="300" loading="lazy">
+          <span data-i18n="sceneShelf">Shelf</span>
+        </button>
+        <button class="scene-btn" data-scene="gaming" type="button">
+          <img src="/examples/gaming/actionfigure.jpg" alt="Gaming room scene example" width="300" height="300" loading="lazy">
+          <span data-i18n="sceneGaming">Gaming</span>
+        </button>
+      </div>
+
       <button class="calc" type="button" id="generateBtn" onclick="generate()" data-i18n="calcBtn" disabled>Generate action figure</button>
 
       <div id="error" class="error" style="display:none;"></div>
@@ -180,27 +196,27 @@
         </div>
         <div class="ex-grid">
           <button class="ex-card active" data-preset="actionfigure" type="button">
-            <img src="/examples/actionfigure.jpg" alt="Action figure example: a photo turned into a boxed collectible action figure" width="640" height="640">
+            <img src="/examples/studio/actionfigure.jpg" alt="Action figure example: a photo turned into a boxed collectible action figure" width="640" height="640">
             <span class="ex-label" data-i18n="presetActionFigure">Action figure</span>
           </button>
           <button class="ex-card" data-preset="chibi" type="button">
-            <img src="/examples/chibi.jpg" alt="Chibi example: a photo turned into a cute big-head figurine" width="640" height="640" loading="lazy">
+            <img src="/examples/studio/chibi.jpg" alt="Chibi example: a photo turned into a cute big-head figurine" width="640" height="640" loading="lazy">
             <span class="ex-label" data-i18n="presetChibi">Chibi</span>
           </button>
           <button class="ex-card" data-preset="doll" type="button">
-            <img src="/examples/doll.jpg" alt="Doll example: a photo turned into a soft vinyl doll" width="640" height="640" loading="lazy">
+            <img src="/examples/studio/doll.jpg" alt="Doll example: a photo turned into a soft vinyl doll" width="640" height="640" loading="lazy">
             <span class="ex-label" data-i18n="presetDoll">Doll</span>
           </button>
           <button class="ex-card" data-preset="realistic" type="button">
-            <img src="/examples/realistic.jpg" alt="Realistic example: a photo turned into a marble sculpture" width="640" height="640" loading="lazy">
+            <img src="/examples/studio/realistic.jpg" alt="Realistic example: a photo turned into a marble sculpture" width="640" height="640" loading="lazy">
             <span class="ex-label" data-i18n="presetRealistic">Realistic</span>
           </button>
           <button class="ex-card" data-preset="pixel" type="button">
-            <img src="/examples/pixel.jpg" alt="Pixel example: a photo turned into a voxel figurine" width="640" height="640" loading="lazy">
+            <img src="/examples/studio/pixel.jpg" alt="Pixel example: a photo turned into a voxel figurine" width="640" height="640" loading="lazy">
             <span class="ex-label" data-i18n="presetPixel">Pixel</span>
           </button>
           <button class="ex-card" data-preset="cyberpunk" type="button">
-            <img src="/examples/cyberpunk.jpg" alt="Cyberpunk example: a photo turned into a neon cyberpunk figure" width="640" height="640" loading="lazy">
+            <img src="/examples/studio/cyberpunk.jpg" alt="Cyberpunk example: a photo turned into a neon cyberpunk figure" width="640" height="640" loading="lazy">
             <span class="ex-label" data-i18n="presetCyberpunk">Cyberpunk</span>
           </button>
         </div>
@@ -235,23 +251,23 @@
     <div class="proof-grid">
       <figure class="proof-item">
         <div class="proof-pair">
-          <div class="proof-cell"><img src="/examples/sample.jpg" alt="Original uploaded portrait photo" width="640" height="640" loading="lazy"><span data-i18n="proofBefore">Your photo</span></div>
+          <div class="proof-cell"><img src="/examples/sample.jpg" alt="Original uploaded portrait photo of a woman" width="640" height="640" loading="lazy"><span data-i18n="proofBefore">Your photo</span></div>
           <div class="proof-arrow" aria-hidden="true">→</div>
-          <div class="proof-cell"><img src="/examples/actionfigure.jpg" alt="Result: the same photo as a boxed action figure" width="640" height="640" loading="lazy"><span data-i18n="presetActionFigure">Action figure</span></div>
+          <div class="proof-cell"><img src="/examples/studio/actionfigure.jpg" alt="Result: the woman as a boxed action figure" width="640" height="640" loading="lazy"><span data-i18n="presetActionFigure">Action figure</span></div>
         </div>
       </figure>
       <figure class="proof-item">
         <div class="proof-pair">
-          <div class="proof-cell"><img src="/examples/sample.jpg" alt="Original uploaded portrait photo" width="640" height="640" loading="lazy"><span data-i18n="proofBefore">Your photo</span></div>
+          <div class="proof-cell"><img src="/examples/man.jpg" alt="Original uploaded portrait photo of a man" width="640" height="640" loading="lazy"><span data-i18n="proofBefore">Your photo</span></div>
           <div class="proof-arrow" aria-hidden="true">→</div>
-          <div class="proof-cell"><img src="/examples/chibi.jpg" alt="Result: the same photo as a chibi figurine" width="640" height="640" loading="lazy"><span data-i18n="presetChibi">Chibi</span></div>
+          <div class="proof-cell"><img src="/examples/man-figure.jpg" alt="Result: the man as a boxed action figure" width="640" height="640" loading="lazy"><span data-i18n="presetActionFigure">Action figure</span></div>
         </div>
       </figure>
       <figure class="proof-item">
         <div class="proof-pair">
-          <div class="proof-cell"><img src="/examples/sample.jpg" alt="Original uploaded portrait photo" width="640" height="640" loading="lazy"><span data-i18n="proofBefore">Your photo</span></div>
+          <div class="proof-cell"><img src="/examples/child.jpg" alt="Original uploaded portrait photo of a child" width="640" height="640" loading="lazy"><span data-i18n="proofBefore">Your photo</span></div>
           <div class="proof-arrow" aria-hidden="true">→</div>
-          <div class="proof-cell"><img src="/examples/doll.jpg" alt="Result: the same photo as a soft vinyl doll" width="640" height="640" loading="lazy"><span data-i18n="presetDoll">Doll</span></div>
+          <div class="proof-cell"><img src="/examples/child-figure.jpg" alt="Result: the child as a boxed action figure" width="640" height="640" loading="lazy"><span data-i18n="presetActionFigure">Action figure</span></div>
         </div>
       </figure>
     </div>
@@ -291,16 +307,19 @@
 
   <section class="prose">
     <h2 data-i18n="afTitle">Action figure prompt ideas</h2>
-    <p data-i18n="afIntro">You don't write a prompt here — you pick a preset and upload a photo. If you want to reproduce these looks in another tool, these are the exact prompts this one uses:</p>
+    <p data-i18n="afIntro">You don't write a prompt here — you pick a style and a scene, then upload a photo. The final prompt is style + scene combined. If you want to reproduce these looks in another tool, these are the exact prompts this one uses:</p>
 
     <h3 data-i18n="af1t">Action figure (boxed collectible)</h3>
-    <p class="mode-desc" style="background:#f8fdff;border:1px solid #d6eef5;border-radius:8px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.78rem;">the person as a collectible action figure in a clear blister pack on a printed cardboard card back, full body, articulated joints, 6-inch scale, product photography, studio lighting, high detail</p>
+    <p class="mode-desc" style="background:#f8fdff;border:1px solid #d6eef5;border-radius:8px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.78rem;">the person as a collectible action figure in a clear blister pack on a printed cardboard card back, full body, articulated joints, 6-inch scale, product photography, high detail</p>
 
     <h3 data-i18n="af2t">Doll (soft vinyl)</h3>
-    <p class="mode-desc" style="background:#f8fdff;border:1px solid #d6eef5;border-radius:8px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.78rem;">the person as a soft vinyl doll, large glossy eyes, pastel outfit, smooth matte skin, studio lighting, plain background, single object, high detail</p>
+    <p class="mode-desc" style="background:#f8fdff;border:1px solid #d6eef5;border-radius:8px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.78rem;">the person as a soft vinyl doll, large glossy eyes, pastel outfit, smooth matte skin, single object, high detail</p>
 
     <h3 data-i18n="af3t">Chibi figurine</h3>
-    <p class="mode-desc" style="background:#f8fdff;border:1px solid #d6eef5;border-radius:8px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.78rem;">3D chibi figurine of the person, cute style, big head, small body, smooth plastic texture, studio lighting, plain white background, product photography, high detail, single object</p>
+    <p class="mode-desc" style="background:#f8fdff;border:1px solid #d6eef5;border-radius:8px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.78rem;">3D chibi figurine of the person, cute style, big head, small body, smooth plastic texture, product photography, high detail, single object</p>
+
+    <h3 data-i18n="afSceneT">Scene suffixes</h3>
+    <p class="mode-desc" style="background:#f8fdff;border:1px solid #d6eef5;border-radius:8px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.78rem;">Studio: plain seamless light gray studio backdrop, soft even product lighting<br>Collector shelf: standing on a wooden collector shelf, blurred rows of collectible figures behind, warm ambient room light<br>Gaming room: on a desk in a gaming room, blurred RGB-lit monitor and keyboard behind, cool neon ambient light</p>
 
     <p data-i18n="afOutro">Tip: the "no signup, no watermark" part matters more than the prompt wording — most tools that accept these prompts put a watermark on the free result.</p>
   </section>
