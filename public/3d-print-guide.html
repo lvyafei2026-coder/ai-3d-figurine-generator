@@ -19,6 +19,35 @@
 <meta property="og:url" content="https://figurine.toolara.dev/3d-print-guide">
 <meta property="og:image" content="https://figurine.toolara.dev/og-image.jpg">
 <link rel="stylesheet" href="/css/style.css">
+<style id="footer-groups-css">
+.site-footer-grid{grid-template-columns:minmax(0,0.85fr) minmax(0,2.65fr)!important;gap:40px!important}
+.site-footer-column:nth-child(2){grid-row:1/span 2!important}
+.site-footer-column:nth-child(3){grid-column:1!important;grid-row:2!important}
+.site-footer-explore{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 20px;align-content:start}
+.site-footer-group{min-width:0}
+.site-footer-group-title{margin:0 0 9px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.16);color:#f8fafc;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;opacity:.75}
+.site-footer-group .site-footer-links{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:7px;font-size:0.85rem;line-height:1.4}
+@media(max-width:960px){.site-footer-grid{grid-template-columns:1fr!important;gap:30px!important}
+.site-footer-column:nth-child(2){grid-row:auto!important}.site-footer-column:nth-child(3){grid-column:auto!important;grid-row:auto!important}
+.site-footer-explore{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+<style id="fc-cloud-css">
+/* Footer tool columns - Linear style (design v3-A) */
+.site-footer-grid{grid-template-columns:1.05fr 1.35fr 1.35fr 0.55fr !important;gap:44px !important}
+/* 覆盖子站旧版 nth-child 网格定位残留 */
+.site-footer .site-footer-column:nth-child(2),.site-footer .site-footer-column:nth-child(3),.site-footer .site-footer-column:nth-child(4){grid-row:auto !important;grid-column:auto !important;display:block !important}
+.site-footer .fa-h4{font-size:0.8rem;font-weight:600;color:#eceef0;margin:0 0 16px;letter-spacing:-0.005em}
+.site-footer .fa-h4 .n{color:#565b63;font-weight:500;margin-left:6px;font-size:0.74rem}
+.site-footer ul.fa-list{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
+.site-footer ul.fa-list.single{columns:1}
+.site-footer ul.fa-list li{margin-bottom:11px;break-inside:avoid}
+.site-footer ul.fa-list a{font-size:0.8rem;color:#83898f;text-decoration:none;transition:color 0.12s;white-space:nowrap}
+.site-footer ul.fa-list a:hover{color:#f0f2f4}
+.site-footer ul.fa-list a .fa-new{color:#46a758;font-size:0.6rem;font-weight:700;letter-spacing:0.06em;margin-left:6px}
+.site-footer .fa-contact{margin-top:18px}.site-footer .fa-contact-h{margin:42px 0 10px !important;color:#f8fafc;font-size:0.95rem;font-weight:650}
+@media(max-width:960px){.site-footer-grid{grid-template-columns:1fr 1fr !important;gap:32px !important}}
+@media(max-width:640px){.site-footer-grid{grid-template-columns:1fr !important;gap:26px !important}}
+</style>
 <style>
 .guide-table { width: 100%; border-collapse: collapse; margin: 14px 0 6px; font-size: 0.88rem; background: #fff; border-radius: 12px; overflow: hidden; border: 2px solid var(--border); }
 .guide-table th { background: #fff2df; text-align: left; padding: 10px 12px; font-size: 0.8rem; letter-spacing: 0.02em; }
