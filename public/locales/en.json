@@ -86,6 +86,8 @@
   "faq4a": "The AI model has a content filter that occasionally misidentifies harmless images. If generation fails, try a different photo with a simpler background.",
   "faq5q": "Can I use the result commercially?",
   "faq5a": "Yes. The tool doesn't add watermarks. You own the result, but make sure you have the rights to the original photo.",
+  "faq8q": "Can I turn my figure into a real physical figurine?",
+  "faq8a": "Yes — the image is the design, and one extra step gets you a 3D-printed figure. See the full workflow and costs in the <a href=\"/3d-print-guide\">3D printing guide</a>.",
   "relatedTitle": "More free image tools",
   "related1Title": "Background remover",
   "related1Text": "Strip the background from any photo before you generate — no signup, no watermark.",

@@ -6,6 +6,11 @@ export default {
       return handleApi(request, env, url);
     }
 
+    // Clean URL for the guide page (html_handling is "none", so extensionless paths would hit the SPA fallback)
+    if (url.pathname === '/3d-print-guide') {
+      return env.ASSETS.fetch(new URL('/3d-print-guide.html', url.origin));
+    }
+
     return env.ASSETS.fetch(request);
   }
 };
