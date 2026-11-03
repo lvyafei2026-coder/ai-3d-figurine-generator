@@ -18,5 +18,5 @@ namespace_id = "1010"
 simple = { limit = 20, period = 60 }
 
 [observability.logs]
-enabled = false
+enabled = true
 invocation_logs = true
