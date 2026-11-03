@@ -4,11 +4,16 @@ let currentPreset = 'actionfigure';
 const uploadZone = document.getElementById('uploadZone');
 const fileInput = document.getElementById('fileInput');
 const preview = document.getElementById('preview');
+const previewThumb = document.getElementById('previewThumb');
 const previewImg = document.getElementById('previewImg');
-const generateBtn = document.getElementById('generateBtn');
-const loadingEl = document.getElementById('loading');
-const errorEl = document.getElementById('error');
 const resultImg = document.getElementById('resultImg');
+const generateBtn = document.getElementById('generateBtn');
+const errorEl = document.getElementById('error');
+const stage = document.getElementById('stage');
+const previewHint = document.getElementById('previewHint');
+const loadingHint = document.getElementById('loadingHint');
+const resultBar = document.getElementById('resultBar');
+const resultDisclaimer = document.getElementById('resultDisclaimer');
 
 uploadZone.addEventListener('click', () => fileInput.click());
 uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('dragover'); });
@@ -24,7 +29,18 @@ fileInput.addEventListener('change', () => {
   if (f) handleFile(f);
 });
 
-const stage = document.getElementById('stage');
+const stageStates = ['examples', 'preview', 'loading', 'result'];
+
+function setStage(state) {
+  if (!stageStates.includes(state)) return;
+  stage.dataset.state = state;
+  previewImg.style.display = (state === 'preview' || state === 'loading') && previewImg.src ? 'block' : 'none';
+  resultImg.style.display = state === 'result' && resultImg.src ? 'block' : 'none';
+  previewHint.style.display = state === 'preview' ? 'block' : 'none';
+  loadingHint.style.display = state === 'loading' ? 'block' : 'none';
+  resultBar.style.display = state === 'result' ? 'flex' : 'none';
+  resultDisclaimer.style.display = state === 'result' ? 'block' : 'none';
+}
 
 function selectStyle(preset) {
   currentPreset = preset;
@@ -32,7 +48,7 @@ function selectStyle(preset) {
     b.classList.toggle('active', b.dataset.preset === preset));
   document.querySelectorAll('.ex-card').forEach(c =>
     c.classList.toggle('active', c.dataset.preset === preset));
-  stage.classList.remove('show-result');
+  if (stage.dataset.state === 'result') setStage('preview');
 }
 
 document.querySelectorAll('#stylePresets .preset-btn').forEach(btn => {
@@ -44,10 +60,10 @@ document.querySelectorAll('.ex-card').forEach(card => {
   card.addEventListener('click', () => selectStyle(card.dataset.preset));
 });
 
-function showExamples() {
-  stage.classList.remove('show-result');
+function backToPreview() {
+  setStage('preview');
 }
-window.showExamples = showExamples;
+window.backToPreview = backToPreview;
 
 async function handleFile(file) {
   const tr = t();
@@ -62,10 +78,13 @@ async function handleFile(file) {
 
   const compressed = await compressImage(file, 512);
   selectedFile = compressed;
-  previewImg.src = URL.createObjectURL(compressed);
-  preview.style.display = 'block';
+  const url = URL.createObjectURL(compressed);
+  previewThumb.src = url;
+  previewImg.src = url;
+  preview.style.display = 'flex';
   generateBtn.disabled = false;
   errorEl.style.display = 'none';
+  setStage('preview');
 }
 
 function compressImage(file, maxSize) {
@@ -100,7 +119,10 @@ function clearImage() {
   selectedFile = null;
   fileInput.value = '';
   preview.style.display = 'none';
+  previewImg.removeAttribute('src');
+  resultImg.removeAttribute('src');
   generateBtn.disabled = true;
+  setStage('examples');
 }
 
 async function generate() {
@@ -114,7 +136,7 @@ async function generate() {
 
   errorEl.style.display = 'none';
   generateBtn.disabled = true;
-  loadingEl.style.display = 'flex';
+  setStage('loading');
 
   try {
     const formData = new FormData();
@@ -127,6 +149,7 @@ async function generate() {
     });
 
     if (res.status === 429) {
+      setStage('preview');
       showError(tr.errRateLimit || 'Too many requests. Please wait a minute.');
       return;
     }
@@ -134,19 +157,20 @@ async function generate() {
     const data = await res.json();
     if (!res.ok || !data.image) {
       const detail = data.code ? ' (' + data.code + ')' : '';
+      setStage('preview');
       showError((data.error || (tr.errGeneric || 'Generation failed.')) + detail);
       return;
     }
 
     resultImg.src = 'data:image/png;base64,' + data.image;
-    stage.classList.add('show-result');
+    setStage('result');
     if (window.innerWidth <= 900) stage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (err) {
     console.error(err);
+    setStage('preview');
     showError(tr.errNetwork || 'Network error. Please try again.');
   } finally {
     generateBtn.disabled = false;
-    loadingEl.style.display = 'none';
   }
 }
 

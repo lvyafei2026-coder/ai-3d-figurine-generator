@@ -145,9 +145,10 @@
         </div>
       </div>
 
-      <div class="preview" id="preview" style="display:none;">
-        <img id="previewImg" alt="Preview">
-        <button class="remove-btn" onclick="clearImage()">✕</button>
+      <div class="file-chip" id="preview" style="display:none;">
+        <img id="previewThumb" alt="Selected photo thumbnail">
+        <span data-i18n="fileReady">Photo ready — pick a style and generate</span>
+        <button class="chip-remove" type="button" onclick="clearImage()" aria-label="Remove photo">✕</button>
       </div>
 
       <label data-i18n="styleLabel">Figure style</label>
@@ -162,15 +163,10 @@
 
       <button class="calc" type="button" id="generateBtn" onclick="generate()" data-i18n="calcBtn" disabled>Generate action figure</button>
 
-      <div id="loading" class="loading" style="display:none;">
-        <div class="spinner"></div>
-        <div data-i18n="loadingText">Generating your figure... (10-30 seconds)</div>
-      </div>
-
       <div id="error" class="error" style="display:none;"></div>
     </section>
 
-    <section class="card stage" id="stage">
+    <section class="card stage" id="stage" data-state="examples">
       <div class="ex-view">
         <div class="ex-head">
           <h2 class="ex-title" data-i18n="exTitle">Style examples</h2>
@@ -204,16 +200,25 @@
         </div>
       </div>
 
-      <div class="result-view" id="result" role="region" aria-live="polite">
-        <div class="result-header">
-          <div class="result-label" data-i18n="resultLabel">Your figure</div>
-          <button class="copy-btn" type="button" onclick="downloadResult()" data-i18n="downloadBtn">Download</button>
+      <div class="stage-canvas-wrap">
+        <div class="stage-canvas">
+          <img id="previewImg" alt="Uploaded photo preview" style="display:none;">
+          <img id="resultImg" alt="Generated figure result" style="display:none;">
+          <div class="canvas-spinner" id="loading">
+            <div class="spinner"></div>
+            <div data-i18n="loadingText">Generating your figure... (10-30 seconds)</div>
+          </div>
         </div>
-        <div class="result-preview">
-          <img id="resultImg" alt="Result">
+        <div class="stage-bar">
+          <p class="stage-hint" id="previewHint" data-i18n="previewHint" style="display:none;">Photo loaded — pick a style, then press Generate</p>
+          <p class="stage-hint" id="loadingHint" data-i18n="loadingText" style="display:none;">Generating your figure... (10-30 seconds)</p>
+          <div id="resultBar" class="stage-bar-row" style="display:none;">
+            <span class="result-label" data-i18n="resultLabel">Your figure</span>
+            <button class="copy-btn" type="button" onclick="downloadResult()" data-i18n="downloadBtn">Download</button>
+            <button class="back-btn" type="button" onclick="backToPreview()" data-i18n="backToPhoto">← Back to photo</button>
+          </div>
         </div>
-        <div class="result-disclaimer" data-i18n="resultDisclaimer">AI-generated image. Results are for entertainment only. Review before sharing.</div>
-        <button class="back-btn" type="button" onclick="showExamples()" data-i18n="backToExamples">← Style examples</button>
+        <p class="result-disclaimer" id="resultDisclaimer" data-i18n="resultDisclaimer" style="display:none;">AI-generated image. Results are for entertainment only. Review before sharing.</p>
       </div>
     </section>
   </div>
