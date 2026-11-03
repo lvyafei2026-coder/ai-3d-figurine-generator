@@ -45,7 +45,13 @@ const STYLE_PROMPTS = {
   chibi: '3D chibi figurine of the person, cute style, big head, small body, smooth plastic texture, product photography, high detail, single object',
   realistic: 'Realistic 3D sculpture of the person, marble texture, museum lighting, single object, front view, high detail',
   pixel: 'Pixel art 3D figurine of the person, voxel style, isometric view, soft shadows, single object',
-  cyberpunk: 'Cyberpunk style 3D figurine of the person, neon accents, metallic texture, single object, high detail'
+  cyberpunk: 'Cyberpunk style 3D figurine of the person, neon accents, metallic texture, single object, high detail',
+  pop: 'the person as a Funko Pop style vinyl collectible figure, oversized square head, round black bead eyes, small simplified body, standing on a round display base, single object, high detail',
+  brick: 'the person as a small plastic building-brick toy minifigure, blocky cylindrical head, simple printed face, C-shaped claw hands, trapezoid torso, glossy plastic, single object, high detail',
+  anime: 'anime style PVC figurine of the person, manga proportions, dynamic pose, glossy painted figure on a round display base, single object, high detail',
+  bobblehead: 'the person as a bobblehead figurine, oversized head connected by a spring on a small body, warm polymer clay finish, playful expression, single object, high detail',
+  plush: 'the person as a soft plush stuffed toy version of themselves, fluffy felt fabric, stitched smile, round button eyes, chibi proportions, single object, high detail',
+  clay: 'the person as a handcrafted claymation character, smooth colorful plasticine surface, clean cheerful finish, stop-motion animation style, single object, high detail'
 };
 
 const SCENE_PROMPTS = {
