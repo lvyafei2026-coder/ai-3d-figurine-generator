@@ -220,6 +220,32 @@ function downloadResult() {
   document.body.removeChild(a);
 }
 
+// Prompt ideas 卡片一键复制
+function copyPrompt(btn) {
+  const code = btn.closest('.prompt-card').querySelector('.prompt-text');
+  const text = code.textContent.trim();
+  const tr = t();
+  const done = () => {
+    btn.textContent = tr.promptCopied || 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = tr.promptCopy || 'Copy';
+      btn.classList.remove('copied');
+    }, 1600);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(() => {});
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+}
+window.copyPrompt = copyPrompt;
+
 function showError(msg) {
   errorEl.textContent = msg;
   errorEl.style.display = 'block';
