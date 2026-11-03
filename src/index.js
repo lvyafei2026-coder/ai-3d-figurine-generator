@@ -37,7 +37,10 @@ async function handleApi(request, env, url) {
   return handleGenerate(request, env);
 }
 
+// 提示词与页面上「Action figure prompt ideas」一节展示的文本必须一致（对用户可见=可复现）
 const STYLE_PROMPTS = {
+  actionfigure: 'the person as a collectible action figure in a clear blister pack on a printed cardboard card back, full body, articulated joints, 6-inch scale, product photography, studio lighting, high detail',
+  doll: 'the person as a soft vinyl doll, large glossy eyes, pastel outfit, smooth matte skin, studio lighting, plain background, single object, high detail',
   chibi: '3D chibi figurine of the person, cute style, big head, small body, smooth plastic texture, studio lighting, plain white background, product photography, high detail, single object',
   realistic: 'Realistic 3D sculpture of the person, marble texture, museum lighting, plain neutral background, single object, front view, high detail',
   pixel: 'Pixel art 3D figurine of the person, voxel style, isometric view, soft shadows, plain background, single object',
@@ -47,7 +50,7 @@ const STYLE_PROMPTS = {
 async function handleGenerate(request, env) {
   try {
     const formData = await request.formData();
-    const styleKey = formData.get('style') || 'chibi';
+    const styleKey = formData.get('style') || 'actionfigure';
     const image0 = formData.get('image_0');
 
     if (!image0 || !(image0 instanceof File)) {
@@ -59,7 +62,7 @@ async function handleGenerate(request, env) {
       return json({ error: 'Image must be under 5MB.' }, 400);
     }
 
-    const stylePrompt = STYLE_PROMPTS[styleKey] || STYLE_PROMPTS.chibi;
+    const stylePrompt = STYLE_PROMPTS[styleKey] || STYLE_PROMPTS.actionfigure;
 
     // 组装 multipart
     const apiForm = new FormData();

@@ -1,5 +1,5 @@
 let selectedFile = null;
-let currentPreset = 'chibi';
+let currentPreset = 'actionfigure';
 
 const uploadZone = document.getElementById('uploadZone');
 const fileInput = document.getElementById('fileInput');

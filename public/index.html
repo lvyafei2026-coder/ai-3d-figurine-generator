@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 3D Figurine Generator — Turn Your Photo into a 3D Figurine (Free)</title>
-<meta name="description" content="Free AI 3D figurine generator. Upload a selfie and see yourself as a chibi, realistic, pixel, or cyberpunk 3D figurine. Powered by Cloudflare Workers AI.">
-<meta name="keywords" content="ai 3d figurine, 3d figurine generator, chibi generator, ai character generator, photo to 3d">
+<title>AI Action Figure Generator &amp; 3D Figurine — Photo to Figure (Free)</title>
+<meta name="description" content="Free AI action figure generator. Upload a photo and get a collectible action figure, 3D figurine, or doll in seconds — chibi, realistic, pixel, cyberpunk. No signup, no watermark.">
+<meta name="keywords" content="ai action figure generator, ai doll generator, ai 3d figurine, 3d figurine generator, action figure from photo, chibi generator, photo to 3d">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <meta name="theme-color" content="#0f766e">
 
@@ -15,13 +15,13 @@
 <link rel="alternate" hreflang="x-default" href="https://figurine.toolara.dev/">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="AI 3D Figurine Generator — Turn Your Photo into a 3D Figurine">
-<meta property="og:description" content="Upload a selfie, get a 3D figurine in seconds.">
+<meta property="og:title" content="AI Action Figure Generator &amp; 3D Figurine — Photo to Figure">
+<meta property="og:description" content="Upload a selfie, get a collectible action figure, 3D figurine or doll in seconds. Free, no signup, no watermark.">
 <meta property="og:url" content="https://figurine.toolara.dev/">
 <meta property="og:image" content="https://figurine.toolara.dev/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AI 3D Figurine Generator — Turn Your Photo into a 3D Figurine">
+<meta property="og:image:alt" content="AI action figure and 3D figurine generator — turn a photo into a collectible figure">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://figurine.toolara.dev/og-image.png">
 
@@ -29,12 +29,56 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "AI 3D Figurine Generator",
+  "name": "AI Action Figure & 3D Figurine Generator",
   "url": "https://figurine.toolara.dev/",
-  "applicationCategory": "UtilityApplication",
+  "applicationCategory": "MultimediaApplication",
   "operatingSystem": "Any",
-  "description": "Free AI tool that turns a photo into a 3D figurine style image.",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  "description": "Free AI action figure generator that turns a photo into a collectible action figure, 3D figurine, or doll style image.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "featureList": [
+    "Photo to action figure (blister-pack collectible style)",
+    "Photo to 3D figurine (chibi, realistic, pixel, cyberpunk)",
+    "Photo to doll",
+    "No signup, no watermark"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this tool free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. It runs on Cloudflare Workers AI with a free daily quota. Normal use won't hit limits." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this an AI action figure generator?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The Action figure preset renders you as a collectible figure in blister packaging, and the Doll preset renders a soft-vinyl doll. Both work from a photo — you don't have to write a prompt." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the result a real 3D model?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. You get a high-resolution image rendered in a 3D figurine style — not an .obj or .stl file you can print. Think of it as a preview of the figure, made for sharing or mockups." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my photo stored?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Your photo is processed in memory and discarded immediately after the result is generated. Nothing is stored." }
+    },
+    {
+      "@type": "Question",
+      "name": "What kind of photo works best?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Front-facing portraits with clear lighting and a plain background work best. For Action figure or Doll, a full-body or half-body shot gives a better result than a tight face crop. Avoid blurry, low-light, or heavily filtered images." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use the result commercially?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. The tool doesn't add watermarks. You own the result, but make sure you have the rights to the original photo." }
+    }
+  ]
 }
 </script>
 
@@ -78,17 +122,17 @@
 <header class="hero">
 
   <div class="hero-inner">
-    <div class="hero-badge">🧸 AI-powered</div>
-    <h1 data-i18n="title">AI 3D Figurine Generator</h1>
-    <p data-i18n="subtitle">Upload a photo. See yourself as a 3D figurine in seconds.</p>
+    <div class="hero-badge" data-i18n="badge">🧸 Action figure · Figurine · Doll</div>
+    <h1 data-i18n="h1">AI Action Figure &amp; 3D Figurine Generator</h1>
+    <p data-i18n="subtitle">Upload a photo. Get a collectible action figure, 3D figurine or doll in seconds — free, no signup.</p>
   </div>
 </header>
 
 <main class="wrap">
   <section class="card">
-    <h2 class="visually-hidden" data-i18n="calcHeading">3D figurine generator</h2>
+    <h2 class="visually-hidden" data-i18n="calcHeading">Action figure and 3D figurine generator</h2>
 
-    <p class="mode-desc" data-i18n="desc">Upload a front-facing photo with clear lighting. The AI will turn you into a 3D figurine.</p>
+    <p class="mode-desc" data-i18n="desc">Upload a front-facing photo with clear lighting. For an action figure or doll, a half-body or full-body shot works better than a face crop.</p>
 
     <label data-i18n="uploadLabel">Your photo</label>
     <div class="upload-zone" id="uploadZone">
@@ -105,26 +149,28 @@
       <button class="remove-btn" onclick="clearImage()">✕</button>
     </div>
 
-    <label data-i18n="styleLabel">Figurine style</label>
+    <label data-i18n="styleLabel">Figure style</label>
     <div class="preset-grid" id="stylePresets">
-      <button class="preset-btn active" data-preset="chibi">Chibi</button>
-      <button class="preset-btn" data-preset="realistic">Realistic</button>
-      <button class="preset-btn" data-preset="pixel">Pixel</button>
-      <button class="preset-btn" data-preset="cyberpunk">Cyberpunk</button>
+      <button class="preset-btn active" data-preset="actionfigure" data-i18n="presetActionFigure">Action figure</button>
+      <button class="preset-btn" data-preset="chibi" data-i18n="presetChibi">Chibi</button>
+      <button class="preset-btn" data-preset="doll" data-i18n="presetDoll">Doll</button>
+      <button class="preset-btn" data-preset="realistic" data-i18n="presetRealistic">Realistic</button>
+      <button class="preset-btn" data-preset="pixel" data-i18n="presetPixel">Pixel</button>
+      <button class="preset-btn" data-preset="cyberpunk" data-i18n="presetCyberpunk">Cyberpunk</button>
     </div>
 
-    <button class="calc" type="button" id="generateBtn" onclick="generate()" data-i18n="calcBtn" disabled>Generate 3D figurine</button>
+    <button class="calc" type="button" id="generateBtn" onclick="generate()" data-i18n="calcBtn" disabled>Generate action figure</button>
 
     <div id="loading" class="loading" style="display:none;">
       <div class="spinner"></div>
-      <div data-i18n="loadingText">Generating your figurine... (10-30 seconds)</div>
+      <div data-i18n="loadingText">Generating your figure... (10-30 seconds)</div>
     </div>
 
     <div id="error" class="error" style="display:none;"></div>
 
     <div id="result" role="region" aria-live="polite">
       <div class="result-header">
-        <div class="result-label" data-i18n="resultLabel">Your 3D figurine</div>
+        <div class="result-label" data-i18n="resultLabel">Your figure</div>
         <button class="copy-btn" type="button" onclick="downloadResult()" data-i18n="downloadBtn">Download</button>
       </div>
       <div class="result-preview">
@@ -136,7 +182,23 @@
 
   <section>
     <h2 data-i18n="whatIsTitle">What does this tool do?</h2>
-    <p data-i18n="whatIsText">This tool uses AI to turn your photo into a 3D figurine style image. Pick a style — chibi, realistic, pixel, or cyberpunk — and see how you'd look as a collectible figure. It's a fun way to visualize yourself in a new format.</p>
+    <p data-i18n="whatIsText">This tool turns your photo into a collectible figure. Pick a style — action figure in blister packaging, 3D figurine, doll, chibi, realistic, pixel, or cyberpunk — and see how you'd look as a collectible. It's a fun way to preview yourself as a figure before you commission or print one.</p>
+  </section>
+
+  <section>
+    <h2 data-i18n="afTitle">Action figure prompt ideas</h2>
+    <p data-i18n="afIntro">You don't write a prompt here — you pick a preset and upload a photo. If you want to reproduce these looks in another tool, these are the exact prompts this one uses:</p>
+
+    <h3 data-i18n="af1t">Action figure (boxed collectible)</h3>
+    <p class="mode-desc" style="background:#f8fdff;border:1px solid #d6eef5;border-radius:8px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.78rem;">the person as a collectible action figure in a clear blister pack on a printed cardboard card back, full body, articulated joints, 6-inch scale, product photography, studio lighting, high detail</p>
+
+    <h3 data-i18n="af2t">Doll (soft vinyl)</h3>
+    <p class="mode-desc" style="background:#f8fdff;border:1px solid #d6eef5;border-radius:8px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.78rem;">the person as a soft vinyl doll, large glossy eyes, pastel outfit, smooth matte skin, studio lighting, plain background, single object, high detail</p>
+
+    <h3 data-i18n="af3t">Chibi figurine</h3>
+    <p class="mode-desc" style="background:#f8fdff;border:1px solid #d6eef5;border-radius:8px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:0.78rem;">3D chibi figurine of the person, cute style, big head, small body, smooth plastic texture, studio lighting, plain white background, product photography, high detail, single object</p>
+
+    <p data-i18n="afOutro">Tip: the "no signup, no watermark" part matters more than the prompt wording — most tools that accept these prompts put a watermark on the free result.</p>
   </section>
 
   <section>
@@ -144,11 +206,17 @@
     <h3 data-i18n="faq1q">Is this tool free?</h3>
     <p data-i18n="faq1a">Yes. It runs on Cloudflare Workers AI with a free daily quota. Normal use won't hit limits.</p>
 
+    <h3 data-i18n="faq6q">Is this an AI action figure generator?</h3>
+    <p data-i18n="faq6a">Yes. The Action figure preset renders you as a collectible figure in blister packaging, and the Doll preset renders a soft-vinyl doll. Both work from a photo — you don't have to write a prompt.</p>
+
+    <h3 data-i18n="faq7q">Is the result a real 3D model?</h3>
+    <p data-i18n="faq7a">No. You get a high-resolution image rendered in a 3D figurine style — not an .obj or .stl file you can print. Think of it as a preview of the figure, made for sharing or mockups.</p>
+
     <h3 data-i18n="faq2q">Is my photo stored?</h3>
     <p data-i18n="faq2a">No. Your photo is processed in memory and discarded immediately after the result is generated. Nothing is stored.</p>
 
     <h3 data-i18n="faq3q">What kind of photo works best?</h3>
-    <p data-i18n="faq3a">Front-facing portraits with clear lighting and a plain background work best. Avoid blurry, low-light, or heavily filtered images.</p>
+    <p data-i18n="faq3a">Front-facing portraits with clear lighting and a plain background work best. For Action figure or Doll, a full-body or half-body shot gives a better result than a tight face crop. Avoid blurry, low-light, or heavily filtered images.</p>
 
     <h3 data-i18n="faq4q">Why does generation sometimes fail?</h3>
     <p data-i18n="faq4a">The AI model has a content filter that occasionally misidentifies harmless images. If generation fails, try a different photo with a simpler background.</p>
@@ -157,6 +225,18 @@
     <p data-i18n="faq5a">Yes. The tool doesn't add watermarks. You own the result, but make sure you have the rights to the original photo.</p>
 
     <div class="disclaimer" data-i18n="disclaimer"><strong>Note:</strong> AI-generated images are for entertainment. Do not use them for official identification or commercial licensing without review.</div>
+  </section>
+
+  <section>
+    <h2 data-i18n="relatedTitle">More free image tools</h2>
+    <p>
+      <span data-i18n="relatedA">Need a clean cutout before you generate? The</span>
+      <a href="https://background.toolara.dev/">background remover</a>
+      <span data-i18n="relatedB">strips the background with no signup and no watermark. Want tattoo, baby, or hairstyle previews instead? Try the</span>
+      <a href="https://creative.toolara.dev/">creative generator</a>.
+      <span data-i18n="relatedC">Every Toolara tool's real free tier is documented in the</span>
+      <a href="https://toolara.dev/free-ai-tools">free AI tools table</a>.
+    </p>
   </section>
 </main>
 
