@@ -8,7 +8,6 @@ const previewImg = document.getElementById('previewImg');
 const generateBtn = document.getElementById('generateBtn');
 const loadingEl = document.getElementById('loading');
 const errorEl = document.getElementById('error');
-const resultEl = document.getElementById('result');
 const resultImg = document.getElementById('resultImg');
 
 uploadZone.addEventListener('click', () => fileInput.click());
@@ -25,13 +24,30 @@ fileInput.addEventListener('change', () => {
   if (f) handleFile(f);
 });
 
+const stage = document.getElementById('stage');
+
+function selectStyle(preset) {
+  currentPreset = preset;
+  document.querySelectorAll('#stylePresets .preset-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.preset === preset));
+  document.querySelectorAll('.ex-card').forEach(c =>
+    c.classList.toggle('active', c.dataset.preset === preset));
+  stage.classList.remove('show-result');
+}
+
 document.querySelectorAll('#stylePresets .preset-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('#stylePresets .preset-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentPreset = btn.dataset.preset;
-  });
+  btn.addEventListener('click', () => selectStyle(btn.dataset.preset));
 });
+
+// 右侧示例卡：点图即选风格
+document.querySelectorAll('.ex-card').forEach(card => {
+  card.addEventListener('click', () => selectStyle(card.dataset.preset));
+});
+
+function showExamples() {
+  stage.classList.remove('show-result');
+}
+window.showExamples = showExamples;
 
 async function handleFile(file) {
   const tr = t();
@@ -50,7 +66,6 @@ async function handleFile(file) {
   preview.style.display = 'block';
   generateBtn.disabled = false;
   errorEl.style.display = 'none';
-  resultEl.classList.remove('show');
 }
 
 function compressImage(file, maxSize) {
@@ -86,7 +101,6 @@ function clearImage() {
   fileInput.value = '';
   preview.style.display = 'none';
   generateBtn.disabled = true;
-  resultEl.classList.remove('show');
 }
 
 async function generate() {
@@ -99,7 +113,6 @@ async function generate() {
   }
 
   errorEl.style.display = 'none';
-  resultEl.classList.remove('show');
   generateBtn.disabled = true;
   loadingEl.style.display = 'flex';
 
@@ -126,7 +139,8 @@ async function generate() {
     }
 
     resultImg.src = 'data:image/png;base64,' + data.image;
-    resultEl.classList.add('show');
+    stage.classList.add('show-result');
+    if (window.innerWidth <= 900) stage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (err) {
     console.error(err);
     showError(tr.errNetwork || 'Network error. Please try again.');

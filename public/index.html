@@ -18,12 +18,12 @@
 <meta property="og:title" content="AI Action Figure Generator &amp; 3D Figurine — Photo to Figure">
 <meta property="og:description" content="Upload a selfie, get a collectible action figure, 3D figurine or doll in seconds. Free, no signup, no watermark.">
 <meta property="og:url" content="https://figurine.toolara.dev/">
-<meta property="og:image" content="https://figurine.toolara.dev/og-image.png">
+<meta property="og:image" content="https://figurine.toolara.dev/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="AI action figure and 3D figurine generator — turn a photo into a collectible figure">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://figurine.toolara.dev/og-image.png">
+<meta name="twitter:image" content="https://figurine.toolara.dev/og-image.jpg">
 
 <script type="application/ld+json">
 {
@@ -129,63 +129,101 @@
 </header>
 
 <main class="wrap">
-  <section class="card">
-    <h2 class="visually-hidden" data-i18n="calcHeading">Action figure and 3D figurine generator</h2>
+  <div class="studio">
+    <section class="card">
+      <h2 class="visually-hidden" data-i18n="calcHeading">Action figure and 3D figurine generator</h2>
 
-    <p class="mode-desc" data-i18n="desc">Upload a front-facing photo with clear lighting. For an action figure or doll, a half-body or full-body shot works better than a face crop.</p>
+      <p class="mode-desc" data-i18n="desc">Upload a front-facing photo with clear lighting. For an action figure or doll, a half-body or full-body shot works better than a face crop.</p>
 
-    <label data-i18n="uploadLabel">Your photo</label>
-    <div class="upload-zone" id="uploadZone">
-      <input type="file" id="fileInput" accept="image/*" style="display:none;">
-      <div class="upload-content">
-        <div class="upload-icon">📁</div>
-        <div class="upload-text" data-i18n="uploadText">Click to upload or drag here</div>
-        <div class="upload-hint" data-i18n="uploadHint">Front-facing portrait works best</div>
+      <label data-i18n="uploadLabel">Your photo</label>
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept="image/*" style="display:none;">
+        <div class="upload-content">
+          <div class="upload-icon">📁</div>
+          <div class="upload-text" data-i18n="uploadText">Click to upload or drag here</div>
+          <div class="upload-hint" data-i18n="uploadHint">Front-facing portrait works best</div>
+        </div>
       </div>
-    </div>
 
-    <div class="preview" id="preview" style="display:none;">
-      <img id="previewImg" alt="Preview">
-      <button class="remove-btn" onclick="clearImage()">✕</button>
-    </div>
-
-    <label data-i18n="styleLabel">Figure style</label>
-    <div class="preset-grid" id="stylePresets">
-      <button class="preset-btn active" data-preset="actionfigure" data-i18n="presetActionFigure">Action figure</button>
-      <button class="preset-btn" data-preset="chibi" data-i18n="presetChibi">Chibi</button>
-      <button class="preset-btn" data-preset="doll" data-i18n="presetDoll">Doll</button>
-      <button class="preset-btn" data-preset="realistic" data-i18n="presetRealistic">Realistic</button>
-      <button class="preset-btn" data-preset="pixel" data-i18n="presetPixel">Pixel</button>
-      <button class="preset-btn" data-preset="cyberpunk" data-i18n="presetCyberpunk">Cyberpunk</button>
-    </div>
-
-    <button class="calc" type="button" id="generateBtn" onclick="generate()" data-i18n="calcBtn" disabled>Generate action figure</button>
-
-    <div id="loading" class="loading" style="display:none;">
-      <div class="spinner"></div>
-      <div data-i18n="loadingText">Generating your figure... (10-30 seconds)</div>
-    </div>
-
-    <div id="error" class="error" style="display:none;"></div>
-
-    <div id="result" role="region" aria-live="polite">
-      <div class="result-header">
-        <div class="result-label" data-i18n="resultLabel">Your figure</div>
-        <button class="copy-btn" type="button" onclick="downloadResult()" data-i18n="downloadBtn">Download</button>
+      <div class="preview" id="preview" style="display:none;">
+        <img id="previewImg" alt="Preview">
+        <button class="remove-btn" onclick="clearImage()">✕</button>
       </div>
-      <div class="result-preview">
-        <img id="resultImg" alt="Result">
-      </div>
-      <div class="result-disclaimer" data-i18n="resultDisclaimer">AI-generated image. Results are for entertainment only. Review before sharing.</div>
-    </div>
-  </section>
 
-  <section>
+      <label data-i18n="styleLabel">Figure style</label>
+      <div class="preset-grid" id="stylePresets">
+        <button class="preset-btn active" data-preset="actionfigure" data-i18n="presetActionFigure">Action figure</button>
+        <button class="preset-btn" data-preset="chibi" data-i18n="presetChibi">Chibi</button>
+        <button class="preset-btn" data-preset="doll" data-i18n="presetDoll">Doll</button>
+        <button class="preset-btn" data-preset="realistic" data-i18n="presetRealistic">Realistic</button>
+        <button class="preset-btn" data-preset="pixel" data-i18n="presetPixel">Pixel</button>
+        <button class="preset-btn" data-preset="cyberpunk" data-i18n="presetCyberpunk">Cyberpunk</button>
+      </div>
+
+      <button class="calc" type="button" id="generateBtn" onclick="generate()" data-i18n="calcBtn" disabled>Generate action figure</button>
+
+      <div id="loading" class="loading" style="display:none;">
+        <div class="spinner"></div>
+        <div data-i18n="loadingText">Generating your figure... (10-30 seconds)</div>
+      </div>
+
+      <div id="error" class="error" style="display:none;"></div>
+    </section>
+
+    <section class="card stage" id="stage">
+      <div class="ex-view">
+        <div class="ex-head">
+          <h2 class="ex-title" data-i18n="exTitle">Style examples</h2>
+          <p class="ex-hint" data-i18n="exHint">Real outputs from this tool — click one to pick that style.</p>
+        </div>
+        <div class="ex-grid">
+          <button class="ex-card active" data-preset="actionfigure" type="button">
+            <img src="/examples/actionfigure.jpg" alt="Action figure example: a photo turned into a boxed collectible action figure" width="640" height="640">
+            <span class="ex-label" data-i18n="presetActionFigure">Action figure</span>
+          </button>
+          <button class="ex-card" data-preset="chibi" type="button">
+            <img src="/examples/chibi.jpg" alt="Chibi example: a photo turned into a cute big-head figurine" width="640" height="640" loading="lazy">
+            <span class="ex-label" data-i18n="presetChibi">Chibi</span>
+          </button>
+          <button class="ex-card" data-preset="doll" type="button">
+            <img src="/examples/doll.jpg" alt="Doll example: a photo turned into a soft vinyl doll" width="640" height="640" loading="lazy">
+            <span class="ex-label" data-i18n="presetDoll">Doll</span>
+          </button>
+          <button class="ex-card" data-preset="realistic" type="button">
+            <img src="/examples/realistic.jpg" alt="Realistic example: a photo turned into a marble sculpture" width="640" height="640" loading="lazy">
+            <span class="ex-label" data-i18n="presetRealistic">Realistic</span>
+          </button>
+          <button class="ex-card" data-preset="pixel" type="button">
+            <img src="/examples/pixel.jpg" alt="Pixel example: a photo turned into a voxel figurine" width="640" height="640" loading="lazy">
+            <span class="ex-label" data-i18n="presetPixel">Pixel</span>
+          </button>
+          <button class="ex-card" data-preset="cyberpunk" type="button">
+            <img src="/examples/cyberpunk.jpg" alt="Cyberpunk example: a photo turned into a neon cyberpunk figure" width="640" height="640" loading="lazy">
+            <span class="ex-label" data-i18n="presetCyberpunk">Cyberpunk</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="result-view" id="result" role="region" aria-live="polite">
+        <div class="result-header">
+          <div class="result-label" data-i18n="resultLabel">Your figure</div>
+          <button class="copy-btn" type="button" onclick="downloadResult()" data-i18n="downloadBtn">Download</button>
+        </div>
+        <div class="result-preview">
+          <img id="resultImg" alt="Result">
+        </div>
+        <div class="result-disclaimer" data-i18n="resultDisclaimer">AI-generated image. Results are for entertainment only. Review before sharing.</div>
+        <button class="back-btn" type="button" onclick="showExamples()" data-i18n="backToExamples">← Style examples</button>
+      </div>
+    </section>
+  </div>
+
+  <section class="prose">
     <h2 data-i18n="whatIsTitle">What does this tool do?</h2>
     <p data-i18n="whatIsText">This tool turns your photo into a collectible figure. Pick a style — action figure in blister packaging, 3D figurine, doll, chibi, realistic, pixel, or cyberpunk — and see how you'd look as a collectible. It's a fun way to preview yourself as a figure before you commission or print one.</p>
   </section>
 
-  <section>
+  <section class="prose">
     <h2 data-i18n="afTitle">Action figure prompt ideas</h2>
     <p data-i18n="afIntro">You don't write a prompt here — you pick a preset and upload a photo. If you want to reproduce these looks in another tool, these are the exact prompts this one uses:</p>
 
@@ -201,7 +239,7 @@
     <p data-i18n="afOutro">Tip: the "no signup, no watermark" part matters more than the prompt wording — most tools that accept these prompts put a watermark on the free result.</p>
   </section>
 
-  <section>
+  <section class="prose">
     <h2 data-i18n="faqTitle">Frequently asked questions</h2>
     <h3 data-i18n="faq1q">Is this tool free?</h3>
     <p data-i18n="faq1a">Yes. It runs on Cloudflare Workers AI with a free daily quota. Normal use won't hit limits.</p>
@@ -227,7 +265,7 @@
     <div class="disclaimer" data-i18n="disclaimer"><strong>Note:</strong> AI-generated images are for entertainment. Do not use them for official identification or commercial licensing without review.</div>
   </section>
 
-  <section>
+  <section class="prose">
     <h2 data-i18n="relatedTitle">More free image tools</h2>
     <p>
       <span data-i18n="relatedA">Need a clean cutout before you generate? The</span>
