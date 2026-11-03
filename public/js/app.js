@@ -6,7 +6,8 @@ const uploadZone = document.getElementById('uploadZone');
 const fileInput = document.getElementById('fileInput');
 const preview = document.getElementById('preview');
 const previewThumb = document.getElementById('previewThumb');
-const previewImg = document.getElementById('previewImg');
+const sampleImg = document.getElementById('sampleImg');
+const sampleTag = document.getElementById('sampleTag');
 const resultImg = document.getElementById('resultImg');
 const generateBtn = document.getElementById('generateBtn');
 const errorEl = document.getElementById('error');
@@ -35,7 +36,9 @@ const stageStates = ['examples', 'preview', 'loading', 'result'];
 function setStage(state) {
   if (!stageStates.includes(state)) return;
   stage.dataset.state = state;
-  previewImg.style.display = (state === 'preview' || state === 'loading') && previewImg.src ? 'block' : 'none';
+  const showSample = (state === 'preview' || state === 'loading');
+  sampleImg.style.display = showSample ? 'block' : 'none';
+  sampleTag.style.display = showSample ? 'inline-block' : 'none';
   resultImg.style.display = state === 'result' && resultImg.src ? 'block' : 'none';
   previewHint.style.display = state === 'preview' ? 'block' : 'none';
   loadingHint.style.display = state === 'loading' ? 'block' : 'none';
@@ -43,12 +46,19 @@ function setStage(state) {
   resultDisclaimer.style.display = state === 'result' ? 'block' : 'none';
 }
 
+// 画布中的效果图跟随所选风格 + 场景
+function updateSample() {
+  sampleImg.src = '/examples/' + currentScene + '/' + currentPreset + '.jpg';
+}
+updateSample();
+
 function selectStyle(preset) {
   currentPreset = preset;
   document.querySelectorAll('#stylePresets .preset-btn').forEach(b =>
     b.classList.toggle('active', b.dataset.preset === preset));
   document.querySelectorAll('.ex-card').forEach(c =>
     c.classList.toggle('active', c.dataset.preset === preset));
+  updateSample();
   if (stage.dataset.state === 'result') setStage('preview');
 }
 
@@ -71,6 +81,7 @@ function selectScene(scene) {
     const m = (img.getAttribute('src') || '').match(/\/examples\/[a-z]+\/([a-z]+\.jpg)$/);
     if (m) img.src = '/examples/' + scene + '/' + m[1];
   });
+  updateSample();
 }
 
 document.querySelectorAll('#scenePresets .scene-btn').forEach(btn => {
@@ -97,7 +108,6 @@ async function handleFile(file) {
   selectedFile = compressed;
   const url = URL.createObjectURL(compressed);
   previewThumb.src = url;
-  previewImg.src = url;
   preview.style.display = 'flex';
   uploadZone.style.display = 'none';
   generateBtn.disabled = false;
@@ -138,7 +148,6 @@ function clearImage() {
   fileInput.value = '';
   preview.style.display = 'none';
   uploadZone.style.display = '';
-  previewImg.removeAttribute('src');
   resultImg.removeAttribute('src');
   generateBtn.disabled = true;
   setStage('examples');

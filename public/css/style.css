@@ -36,7 +36,7 @@ body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "P
 .ex-head { margin-bottom: 12px; }
 .ex-title { font-size: 1.02rem; margin: 0 0 4px; letter-spacing: -0.01em; }
 .ex-hint { font-size: 0.8rem; color: var(--muted); margin: 0; }
-.ex-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; flex: 1; align-content: center; }
+.ex-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; flex: 1; align-content: center; }
 .ex-card { padding: 0; border: 2px solid var(--border); background: #fff; border-radius: 12px; overflow: hidden; cursor: pointer; font-family: inherit; transition: border-color 0.15s, transform 0.15s; box-shadow: 0 2px 0 rgba(61,43,31,0.06); }
 .ex-card img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; background: #f6ede2; }
 .ex-label { display: block; padding: 7px 4px; font-size: 0.75rem; font-weight: 700; color: var(--text); text-align: center; }
@@ -54,6 +54,7 @@ body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "P
 .stage[data-state="result"] .ex-view { display: none; }
 .stage-canvas { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; border-radius: 14px; border: 2px solid var(--border); background-color: #fff9f2; background-image: radial-gradient(rgba(255,107,53,0.07) 1.5px, transparent 1.5px); background-size: 22px 22px; overflow: hidden; min-height: 340px; padding: 14px; }
 .stage-canvas img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; border: 2px solid var(--border); background: #fff; }
+.sample-tag { position: absolute; top: 22px; left: 22px; z-index: 2; background: rgba(61,43,31,0.72); color: #fff; font-size: 0.68rem; font-weight: 800; padding: 4px 11px; border-radius: 999px; letter-spacing: 0.05em; text-transform: uppercase; }
 .canvas-spinner { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: rgba(255, 248, 239, 0.88); font-size: 0.9rem; font-weight: 700; color: var(--accent); text-align: center; padding: 20px; }
 .canvas-spinner .spinner { width: 30px; height: 30px; border-width: 3px; }
 .stage[data-state="loading"] .canvas-spinner { display: flex; }
@@ -162,7 +163,7 @@ li { margin-bottom: 8px; line-height: 1.65; }
   .wrap { padding: 0 14px 48px; }
   .card { padding: 20px; }
   .preset-grid { grid-template-columns: repeat(2, 1fr); }
-  .ex-grid { grid-template-columns: repeat(2, 1fr); }
+  .ex-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
 }
 /* Toolara site navigation */
 .site-header { position: relative; z-index: 10; background: rgba(255,253,249,0.96); border-bottom: 2px solid var(--border, #f3e3d0); }

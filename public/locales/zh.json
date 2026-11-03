@@ -24,6 +24,7 @@
   "uploadHint": "正脸肖像效果最好",
   "fileReady": "照片已就绪 — 选择风格后点击生成",
   "previewHint": "照片已上传 — 选择风格，然后点击生成",
+  "sampleTag": "风格示例",
   "backToPhoto": "← 返回照片",
   "styleLabel": "手办风格",
   "presetActionFigure": "可动手办",

@@ -24,6 +24,7 @@
   "uploadHint": "Front-facing portrait works best",
   "fileReady": "Photo ready — pick a style and generate",
   "previewHint": "Photo loaded — pick a style, then press Generate",
+  "sampleTag": "Style preview",
   "backToPhoto": "← Back to photo",
   "styleLabel": "Figure style",
   "presetActionFigure": "Action figure",
