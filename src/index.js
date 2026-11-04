@@ -65,14 +65,20 @@ const SCENE_PROMPTS = {
   gaming: 'on a desk in a gaming room, blurred RGB-lit monitor and keyboard behind, cool neon ambient light'
 };
 
-// 全局每日生成上限：账户 Workers AI 免费层 10,000 neurons/天（music 站封面同账户共享）。
-// flux-2-klein-4b 1024x1024 实测单张约 250-400 neurons，留余量给 music，日限 25 张。
-const DAILY_LIMIT = 25;
+// 全局每日生成上限：账户 Workers AI 免费层 10,000 neurons/天（UTC 日切），全站群共享。
+//   flux-2-klein-4b 1024x1024 实测单张约 250-400 neurons（按 330 估）。
+//   2026-11-04 实测：本站 25 张/天就吃掉 8.25k，radar 一跑就报 4006，所以按账户预算重切：
+//     本站出图 8 张 ≈2.6k + creative 出图 6 张 ≈2.0k + radar 分析 12 次 ≈3.1k
+//     + music 封面 ≈1k，余下 ~1.3k 给 3b 文案站。
+//   两站共用一个 KV namespace（QUOTA_KV），靠 key 前缀区分，不各算各的。
+const DAILY_LIMIT = 8;
+const QUOTA_PREFIX = 'img:figurine:';
 
 function todayKey() {
-  return 'daily:' + new Date().toISOString().slice(0, 10);
+  return QUOTA_PREFIX + new Date().toISOString().slice(0, 10);
 }
 
+// 预占一格：先记账再调模型，失败（含 4006）时 refund 还回去
 async function checkDailyQuota(env) {
   const key = todayKey();
   const current = parseInt((await env.QUOTA_KV.get(key)) || '0', 10);
@@ -83,7 +89,14 @@ async function checkDailyQuota(env) {
   return { ok: true, current };
 }
 
+async function refundQuota(env) {
+  const key = todayKey();
+  const current = parseInt((await env.QUOTA_KV.get(key)) || '0', 10);
+  if (current > 0) await env.QUOTA_KV.put(key, String(current - 1), { expirationTtl: 172800 });
+}
+
 async function handleGenerate(request, env) {
+  let quotaReserved = false;
   try {
     const formData = await request.formData();
     const styleKey = formData.get('style') || 'actionfigure';
@@ -110,6 +123,7 @@ async function handleGenerate(request, env) {
         code: 'QUOTA_EXCEEDED'
       }, 429);
     }
+    quotaReserved = true;
 
     // 组装 multipart
     const apiForm = new FormData();
@@ -144,8 +158,10 @@ async function handleGenerate(request, env) {
       code: err.code,
       name: err.name
     });
-    // Workers AI 免费层日配额耗尽（4006 neurons exhausted）
+    // Workers AI 免费层日配额耗尽（4006 neurons exhausted）：
+    // 额度判定在入口，没产生推理，把预占的那一格还回去，别让额度耗尽时的失败把当天配额也耗光
     if (String(err.message || '').includes('4006') || err.code === 4006) {
+      if (quotaReserved) await refundQuota(env);
       return json({
         error: "Today's free quota is used up. Please come back tomorrow.",
         code: 'QUOTA_EXCEEDED'
