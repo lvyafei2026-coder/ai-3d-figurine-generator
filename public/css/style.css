@@ -258,3 +258,15 @@ li { margin-bottom: 8px; line-height: 1.65; }
 .site-footer-bottom p { margin: 0; }
 @media (max-width: 960px) { .site-footer-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 34px; } .site-footer-column:first-child { grid-column: 1 / -1; } }
 @media (max-width: 760px) { .site-footer { padding: 36px 20px 20px !important; } .site-footer-grid { grid-template-columns: 1fr; gap: 28px; } .site-footer-column:first-child { grid-column: auto; } .site-footer-links { gap: 10px 14px; } .site-footer-bottom { margin-top: 28px; } }
+
+/* ===== 轻登录（右上角 Google One Tap）===== */
+#auth-area { display: flex; align-items: center; }
+.auth-btn { display: flex; align-items: center; }
+.auth-chip { display: flex; align-items: center; gap: 7px; padding: 4px 6px 4px 4px; border: 1px solid var(--border, #e2e8f0); border-radius: 999px; background: #fff; font-size: 0.8rem; color: var(--text, #0f1c2e); max-width: 230px; box-shadow: 0 1px 2px rgba(15,28,46,0.06); }
+.auth-chip img { width: 26px; height: 26px; border-radius: 50%; display: block; }
+.auth-chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.auth-chip button { border: 0; background: none; cursor: pointer; color: #94a3b8; font-size: 15px; padding: 0 3px; line-height: 1; border-radius: 50%; }
+.auth-chip button:hover { color: #ef4444; }
+@media (max-width: 560px) {
+  .auth-chip { max-width: 160px; }
+}
