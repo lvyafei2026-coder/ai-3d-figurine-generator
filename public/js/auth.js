@@ -121,12 +121,25 @@
     });
   }
 
+  // GIS 按钮语言：官方支持 gsi/client?hl=<locale>，不设则跟浏览器走。
+  // 页面切换语言时重载脚本并重渲染按钮，保证与页面语言一致。
+  function currentHl() {
+    var m = String(document.documentElement.lang || '').toLowerCase();
+    return m.indexOf('zh') === 0 ? 'zh-CN' : 'en';
+  }
   function loadGsi(cb) {
-    if (window.google && window.google.accounts && window.google.accounts.id) return cb();
+    var hl = currentHl();
+    if (window.google && window.google.accounts && window.google.accounts.id) {
+      if (window.__toolaraGsiHl === hl) return cb();
+      var old = document.getElementById('toolara-gsi');
+      if (old && old.parentNode) old.parentNode.removeChild(old);
+      try { delete window.google; } catch (e) { window.google = undefined; }
+    }
     var s = document.createElement('script');
-    s.src = 'https://accounts.google.com/gsi/client';
+    s.id = 'toolara-gsi';
+    s.src = 'https://accounts.google.com/gsi/client?hl=' + hl;
     s.async = true; s.defer = true;
-    s.onload = cb;
+    s.onload = function () { window.__toolaraGsiHl = hl; cb(); };
     s.onerror = function () { log('gsi script load failed'); };
     document.head.appendChild(s);
   }
@@ -178,4 +191,10 @@
   }
 
   render();
+
+  // 页面语言切换后重渲染（未登录态下按钮/气泡文案跟随页面语言）
+  var langSel = document.getElementById('langSelect');
+  if (langSel) langSel.addEventListener('change', function () {
+    setTimeout(function () { hideNudge(); render(); }, 80);
+  });
 })();
