@@ -49,9 +49,6 @@
       return t && Date.now() - t < 86400000;
     } catch (e) { return false; }
   }
-  function mute() {
-    try { localStorage.setItem(MUTE_KEY, String(Date.now())); } catch (e) {}
-  }
 
   function chip(user) {
     hideNudge();
@@ -146,7 +143,9 @@
     document.head.appendChild(s);
   }
 
-  // 进页自动尝试一次 One Tap。FedCM 下 isDisplayed 等已废弃（恒 false），6s 兜底出引导。
+  // 进页自动尝试一次 One Tap（FedCM 下 Chrome 通常不弹大窗）。
+  // 注意：prompt 不传回调——回调里的 isDisplayed/isSkippedMoment 等 UI 状态方法
+  // 已被 Google 废弃（FedCM 下恒 false 且打 GSI_LOGGER 警告），一律不调用。
   var promptDone = false;
   function autoPrompt() {
     if (getUser() || muted() || promptDone) return;
@@ -156,33 +155,11 @@
   // manual=true 时（用户点按钮）绕过 24h 静音——主动点击不应被静音拦住
   function doPrompt(manual) {
     if (!inited) return;
-    var shown = false;
     try {
-      google.accounts.id.prompt(function (n) {
-        var info = {
-          displayed: !!(n && n.isDisplayed && n.isDisplayed()),
-          notDisplayed: !!(n && n.isNotDisplayed && n.isNotDisplayed()),
-          skipped: !!(n && n.isSkippedMoment && n.isSkippedMoment()),
-          dismissed: !!(n && n.isDismissedMoment && n.isDismissedMoment()),
-          reason: n && n.getNotDisplayedReason ? n.getNotDisplayedReason() : '',
-          skipReason: n && n.getSkippedReason ? n.getSkippedReason() : ''
-        };
-        log('prompt callback ' + JSON.stringify(info) + (manual ? ' (manual)' : ''));
-        if (info.displayed) { shown = true; return; }
-        if (!manual) {
-          if (info.skipped && info.skipReason === 'user_cancel') mute();
-          if (info.dismissed) mute();
-          showNudge();
-        }
-      });
-      if (!manual) {
-        setTimeout(function () {
-          if (!shown && !getUser()) showNudge();
-        }, 6000);
-      }
+      log('prompt() called' + (manual ? ' (manual)' : ''));
+      google.accounts.id.prompt();
     } catch (e) {
       log('prompt failed: ' + e);
-      if (!manual) showNudge();
     }
   }
 
@@ -200,6 +177,7 @@
       loadGsi(function () { doPrompt(true); });
     });
     area.appendChild(btn);
+    showNudge();          // 立即出引导气泡（每天最多一次、可关、12s 自灭），不等 GSI
     loadGsi(autoPrompt);
   }
 
