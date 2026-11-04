@@ -1,20 +1,30 @@
 // ============================================================================
 // Toolara 轻登录（Google One Tap / FedCM）
-//   交互：右上角官方「Sign in with Google」按钮 + 进页后一次 One Tap 提示，
-//         用户点一下当前 Google 账号即完成，无注册 / 无邮件验证 / 无密码。
+//   交互：右上角官方「Sign in with Google」按钮；进页立即调一次 One Tap
+//         （Chrome 启用 FedCM 后不再弹大窗，只出被动提示，故 6s 内没结果时
+//         用一次性引导气泡把用户引到按钮上，气泡每天最多一次、可关闭、12s 自动消失）。
 //   数据：credential（id_token）POST 到 tool-proxy /_auth/google 验签入库，
 //         本地只在 localStorage 存 {email,name,picture}；登出仅清本地。
 //   配置：window.TOOLARA_GOOGLE_CLIENT_ID 由 tool-proxy 注入（HTML <head>），
 //         未注入 / 未配置 → 本组件整体不渲染，页面无任何感知。
+//   调试：URL 带 ?authdebug=1 时 console 输出 GIS 回调原因码。
 // ============================================================================
 (function () {
   'use strict';
   var CLIENT_ID = window.TOOLARA_GOOGLE_CLIENT_ID || '';
   var USER_KEY = 'toolara_user';
-  var MUTE_KEY = 'toolara_onetap_muted';     // One Tap 被关掉后 24h 内不再弹
+  var MUTE_KEY = 'toolara_onetap_muted';      // One Tap 被关掉后 24h 内不再调
+  var NUDGE_KEY = 'toolara_nudge_at';         // 引导气泡每天最多一次
+  var DEBUG = /[?&]authdebug=1/.test(location.search);
   var area = document.getElementById('auth-area');
   if (!area || !CLIENT_ID || /^null$/.test(CLIENT_ID)) return;
 
+  function log(msg) {
+    if (DEBUG && window.console) console.log('[auth] ' + msg);
+  }
+  function zh() {
+    return String(document.documentElement.lang || '').toLowerCase().indexOf('zh') === 0;
+  }
   function getUser() {
     try { return JSON.parse(localStorage.getItem(USER_KEY) || 'null'); } catch (e) { return null; }
   }
@@ -32,6 +42,7 @@
   }
 
   function chip(user) {
+    hideNudge();
     area.innerHTML = '';
     var el = document.createElement('div');
     el.className = 'auth-chip';
@@ -56,9 +67,37 @@
     area.appendChild(el);
   }
 
+  // 一次性引导气泡：Google 不再自动弹窗时，用它把用户引到按钮上
+  var nudgeEl = null;
+  function showNudge() {
+    if (nudgeEl || getUser()) return;
+    var t = 0;
+    try { t = Number(localStorage.getItem(NUDGE_KEY) || 0); } catch (e) {}
+    if (t && Date.now() - t < 86400000) return;
+    try { localStorage.setItem(NUDGE_KEY, String(Date.now())); } catch (e) {}
+    nudgeEl = document.createElement('div');
+    nudgeEl.className = 'auth-nudge';
+    nudgeEl.setAttribute('role', 'status');
+    var txt = document.createElement('span');
+    txt.textContent = zh() ? '用 Google 账号一键登录，无需注册' : 'One click with Google, no signup';
+    var x = document.createElement('button');
+    x.type = 'button';
+    x.textContent = '\u00d7';
+    x.setAttribute('aria-label', 'Dismiss');
+    x.addEventListener('click', hideNudge);
+    nudgeEl.appendChild(txt); nudgeEl.appendChild(x);
+    area.appendChild(nudgeEl);
+    setTimeout(hideNudge, 12000);
+  }
+  function hideNudge() {
+    if (nudgeEl && nudgeEl.parentNode) nudgeEl.parentNode.removeChild(nudgeEl);
+    nudgeEl = null;
+  }
+
   function render() {
     var user = getUser();
     if (user && user.email) { chip(user); return; }
+    hideNudge();
     area.innerHTML = '';
     var holder = document.createElement('div');
     holder.className = 'auth-btn';
@@ -70,13 +109,15 @@
           callback: onCredential,
           auto_select: false,
           cancel_on_tap_outside: true,
-          use_fedcm_for_prompt: true
+          use_fedcm_for_prompt: true,
+          itp_support: true
         });
         google.accounts.id.renderButton(holder, {
           theme: 'outline', size: 'medium', shape: 'pill',
           text: 'signin', logo_alignment: 'left'
         });
-      } catch (e) { /* GIS 不可用：保持无登录态，不阻塞页面 */ }
+      } catch (e) { log('initialize failed: ' + e); }
+      promptOnce();
     });
   }
 
@@ -86,46 +127,55 @@
     s.src = 'https://accounts.google.com/gsi/client';
     s.async = true; s.defer = true;
     s.onload = cb;
-    s.onerror = function () { /* 加载失败静默，不阻塞页面 */ };
+    s.onerror = function () { log('gsi script load failed'); };
     document.head.appendChild(s);
+  }
+
+  // 进页立即尝试一次 One Tap。回调里判断"到底有没有给用户看到东西"：
+  // FedCM 模式下 isDisplayed 等接口已废弃（恒 false），所以再加一个 6s 兜底。
+  var promptDone = false;
+  function promptOnce() {
+    if (getUser() || muted() || promptDone) return;
+    promptDone = true;
+    var shown = false;
+    try {
+      google.accounts.id.prompt(function (n) {
+        var info = {
+          displayed: !!(n && n.isDisplayed && n.isDisplayed()),
+          notDisplayed: !!(n && n.isNotDisplayed && n.isNotDisplayed()),
+          skipped: !!(n && n.isSkippedMoment && n.isSkippedMoment()),
+          dismissed: !!(n && n.isDismissedMoment && n.isDismissedMoment()),
+          reason: n && n.getNotDisplayedReason ? n.getNotDisplayedReason() : '',
+          skipReason: n && n.getSkippedReason ? n.getSkippedReason() : ''
+        };
+        log('prompt callback ' + JSON.stringify(info));
+        if (info.displayed) { shown = true; return; }
+        if (info.skipped && info.skipReason === 'user_cancel') mute();
+        if (info.dismissed) mute();
+        showNudge();
+      });
+      // FedCM 下 prompt 可能既不弹窗也不回调 —— 6s 后仍无结果就给引导
+      setTimeout(function () {
+        if (!shown && !getUser()) showNudge();
+      }, 6000);
+    } catch (e) {
+      log('prompt failed: ' + e);
+      showNudge();
+    }
   }
 
   function onCredential(resp) {
     if (!resp || !resp.credential) return;
+    log('credential received');
     fetch('/_auth/google', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ credential: resp.credential })
     }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
       if (d && d.ok && d.user && d.user.email) { store(d.user); chip(d.user); }
-    }).catch(function () {});
-  }
-
-  // 进页后尝试一次 One Tap（用户已登录 Google 时右上角弹出授权提示；
-  // 被跳过 / 关闭后 24h 静默，不反复打扰）
-  function tryPrompt() {
-    if (getUser() || muted()) return;
-    try {
-      google.accounts.id.prompt(function (n) {
-        try {
-          if (!n) return;
-          if ((n.isSkippedMoment && n.isSkippedMoment()) ||
-              (n.isDismissedMoment && n.isDismissedMoment() && !n.isDisplayed())) mute();
-        } catch (e) {}
-      });
-    } catch (e) {}
+      else log('server rejected: ' + JSON.stringify(d));
+    }).catch(function (e) { log('post failed: ' + e); });
   }
 
   render();
-  if (window.google && window.google.accounts && window.google.accounts.id) {
-    setTimeout(tryPrompt, 2500);
-  } else {
-    var timer = setInterval(function () {
-      if (window.google && window.google.accounts && window.google.accounts.id) {
-        clearInterval(timer);
-        setTimeout(tryPrompt, 1500);
-      }
-    }, 400);
-    setTimeout(function () { clearInterval(timer); }, 8000);
-  }
 })();
