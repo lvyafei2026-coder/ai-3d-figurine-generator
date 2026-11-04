@@ -287,3 +287,6 @@ li { margin-bottom: 8px; line-height: 1.65; }
 .auth-btn-g svg { display: block; flex: 0 0 auto; }
 /* 气泡宽度不依赖按钮宽（否则被压成窄条） */
 .auth-nudge { width: max-content; }
+
+/* 官方 Google 按钮容器的 flex 基线 */
+.auth-slot { display: flex; align-items: center; line-height: 0; }
