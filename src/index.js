@@ -67,11 +67,12 @@ const SCENE_PROMPTS = {
 
 // 全局每日生成上限：账户 Workers AI 免费层 10,000 neurons/天（UTC 日切），全站群共享。
 //   flux-2-klein-4b 1024x1024 实测单张约 250-400 neurons（按 330 估）。
-//   2026-11-04 实测：本站 25 张/天就吃掉 8.25k，radar 一跑就报 4006，所以按账户预算重切：
-//     本站出图 8 张 ≈2.6k + creative 出图 6 张 ≈2.0k + radar 分析 12 次 ≈3.1k
-//     + music 封面 ≈1k，余下 ~1.3k 给 3b 文案站。
+//   2026-11-04 二次切分：radar 的 autopilot 自动分析停用（额度让给产品站），本站 8 → 12 张。
+//     本站出图 12 张 ≈4.0k + creative 出图 8 张 ≈2.6k + radar 手动 5 次 ≈1.3k，
+//     余 ~2.1k 给 music 封面 / 3b 文案站 / 突发。
 //   两站共用一个 KV namespace（QUOTA_KV），靠 key 前缀区分，不各算各的。
-const DAILY_LIMIT = 8;
+//   撞账户 4006 时写 img:alert:<UTC日> 旗——radar 的预警巡检每 2 小时读一次并发邮件。
+const DAILY_LIMIT = 12;
 const QUOTA_PREFIX = 'img:figurine:';
 
 function todayKey() {
@@ -93,6 +94,14 @@ async function refundQuota(env) {
   const key = todayKey();
   const current = parseInt((await env.QUOTA_KV.get(key)) || '0', 10);
   if (current > 0) await env.QUOTA_KV.put(key, String(current - 1), { expirationTtl: 172800 });
+}
+
+// 账户额度见底：立旗给 radar 的预警巡检（每 2 小时读一次，发邮件提醒）
+async function flagQuotaExhausted(env) {
+  try {
+    await env.QUOTA_KV.put('img:alert:' + new Date().toISOString().slice(0, 10),
+      new Date().toISOString(), { expirationTtl: 172800 });
+  } catch (e) { console.error('flagQuotaExhausted failed:', e.message); }
 }
 
 async function handleGenerate(request, env) {
@@ -159,9 +168,11 @@ async function handleGenerate(request, env) {
       name: err.name
     });
     // Workers AI 免费层日配额耗尽（4006 neurons exhausted）：
-    // 额度判定在入口，没产生推理，把预占的那一格还回去，别让额度耗尽时的失败把当天配额也耗光
+    // 额度判定在入口，没产生推理，把预占的那一格还回去，别让额度耗尽时的失败把当天配额也耗光；
+    // 同时立旗（img:alert:<UTC日>），radar 的预警巡检读到就发邮件
     if (String(err.message || '').includes('4006') || err.code === 4006) {
       if (quotaReserved) await refundQuota(env);
+      await flagQuotaExhausted(env);
       return json({
         error: "Today's free quota is used up. Please come back tomorrow.",
         code: 'QUOTA_EXCEEDED'
