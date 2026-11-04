@@ -280,3 +280,10 @@ li { margin-bottom: 8px; line-height: 1.65; }
 @media (max-width: 560px) {
   .auth-nudge { max-width: 205px; right: -2px; font-size: 0.74rem; }
 }
+
+/* 自绘 Google 按钮（FedCM 下官方 iframe 语言跟浏览器走，无法跟页面，改自绘） */
+.auth-btn-g { gap: 9px; height: 34px; padding: 0 14px 0 11px; border: 1px solid #747775; border-radius: 999px; background: #fff; color: #1f1f1f; font-size: 13.5px; font-weight: 500; cursor: pointer; font-family: inherit; line-height: 1; white-space: nowrap; transition: box-shadow 0.15s ease; }
+.auth-btn-g:hover { box-shadow: 0 1px 3px rgba(0,0,0,0.14); }
+.auth-btn-g svg { display: block; flex: 0 0 auto; }
+/* 气泡宽度不依赖按钮宽（否则被压成窄条） */
+.auth-nudge { width: max-content; }
