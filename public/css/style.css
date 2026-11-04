@@ -288,5 +288,12 @@ li { margin-bottom: 8px; line-height: 1.65; }
 /* 气泡宽度不依赖按钮宽（否则被压成窄条） */
 .auth-nudge { width: max-content; }
 
-/* 官方 Google 按钮容器的 flex 基线 */
-.auth-slot { display: flex; align-items: center; line-height: 0; }
+/* 官方按钮：视觉层自绘（语言跟页面语言）+ 点击层官方 iframe（透明覆盖，走 FedCM 按钮流）
+   —— 官方按钮文案跟浏览器/账号语言，?hl= 压不过；自绘按钮点击只能走 prompt()，会被 FedCM 压制 */
+.auth-slot { position: relative; display: inline-flex; align-items: center; }
+.auth-look { display: flex; align-items: center; gap: 10px; width: 220px; height: 44px; padding: 0 12px; border: 1px solid #747775; border-radius: 999px; background: #fff; color: #1f1f1f; font-family: Roboto, Arial, sans-serif; font-size: 14px; font-weight: 500; line-height: 1; white-space: nowrap; overflow: hidden; pointer-events: none; }
+.auth-look svg { display: block; flex: 0 0 auto; }
+.auth-hit { position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; overflow: hidden; }
+.auth-hit iframe { display: block; }
+.auth-slot:focus-within .auth-look { box-shadow: 0 0 0 2px rgba(66,133,244,0.5); }
+@media (max-width: 420px) { .auth-look { font-size: 13px; gap: 8px; padding: 0 10px; } }
