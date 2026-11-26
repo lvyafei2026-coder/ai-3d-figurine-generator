@@ -15,9 +15,9 @@
   "how3Text": "10-30 秒出图，直接下载 PNG——无水印、无需账号、不用留邮箱。",
   "title": "Toolara Figurine",
   "badge": "🧸 可动手办 · 手办 · 娃娃",
-  "h1": "AI 可动手办 & 3D 手办生成器",
-  "subtitle": "上传一张照片，几秒内得到可动手办、3D 手办或娃娃造型——免费，无需注册。",
-  "calcHeading": "可动手办与 3D 手办生成",
+  "h1": "AI 手办生成器",
+  "subtitle": "上传照片，生成收藏级手办图片——可选择可动手办、Q版、娃娃和写实等风格。每天免费生成。",
+  "calcHeading": "AI 手办生成器",
   "desc": "上传一张正面、光线充足的照片。要生成可动手办或娃娃，半身或全身照比只剩脸的照片效果更好。",
   "uploadLabel": "你的照片",
   "uploadText": "点击上传或拖拽到此处",
@@ -109,8 +109,7 @@
   "sceneStudio": "棚拍",
   "sceneShelf": "收藏架",
   "sceneGaming": "游戏房",
-  "afSceneT": "场景后缀"
-,
+  "afSceneT": "场景后缀",
   "related4Title": "3D 打印指南",
   "related4Text": "把手办图变成真实的实体手办 — 图生 3D 工具、打印方式与真实费用。"
 }
