@@ -15,9 +15,9 @@
   "how3Text": "The image is ready in 10-30 seconds. Download it as a PNG — no watermark, no account, no email required.",
   "title": "Toolara Figurine",
   "badge": "🧸 Action figure · Figurine · Doll",
-  "h1": "AI Action Figure & 3D Figurine Generator",
-  "subtitle": "Upload a photo. Get a collectible action figure, 3D figurine or doll in seconds — free, no signup.",
-  "calcHeading": "Action figure and 3D figurine generator",
+  "h1": "AI Figurine Generator",
+  "subtitle": "Turn a photo into a collectible figurine — explore action figure, chibi, doll and realistic styles. Free daily generations.",
+  "calcHeading": "AI figurine generator",
   "desc": "Upload a front-facing photo with clear lighting. For an action figure or doll, a half-body or full-body shot works better than a face crop.",
   "uploadLabel": "Your photo",
   "uploadText": "Click to upload or drag here",
@@ -109,8 +109,7 @@
   "sceneStudio": "Studio",
   "sceneShelf": "Shelf",
   "sceneGaming": "Gaming",
-  "afSceneT": "Scene suffixes"
-,
+  "afSceneT": "Scene suffixes",
   "related4Title": "3D printing guide",
   "related4Text": "Turn your figure into a real physical figurine — image-to-3D tools, printing options, and real costs."
 }
