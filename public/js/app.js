@@ -88,6 +88,12 @@ document.querySelectorAll('#scenePresets .scene-btn').forEach(btn => {
   btn.addEventListener('click', () => selectScene(btn.dataset.scene));
 });
 
+// SEO landing pages can open the generator with their matching style preselected.
+const requestedStyle = new URLSearchParams(window.location.search).get('style');
+const requestedPreset = Array.from(document.querySelectorAll('#stylePresets [data-preset]'))
+  .find(button => button.dataset.preset === requestedStyle);
+if (requestedPreset) selectStyle(requestedStyle);
+
 function backToPreview() {
   setStage('preview');
 }
