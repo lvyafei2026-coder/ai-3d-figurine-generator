@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://figurine.toolara.dev/sitemap.xml
