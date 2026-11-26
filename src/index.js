@@ -167,10 +167,22 @@ async function handleGenerate(request, env) {
       code: err.code,
       name: err.name
     });
+    // FLUX 输出安全审查拦截（3030）是模型侧判定，常见误伤（人物/衣物照片偶发）；
+    // 图上没有结果，把预占的那格还回去，让用户自己重试或换照片。
+    // 不在服务端循环重发同一输入：对真实违规内容反复硬试就是在绕审核。
+    const msg = String(err.message || '');
+    if (msg.includes('3030') || msg.includes('flagged') || err.code === 3030) {
+      if (quotaReserved) await refundQuota(env);
+      return json({
+        error: 'This photo was blocked by the image safety filter. '
+          + 'Please try again, or upload a different photo.',
+        code: 'FLAGGED'
+      }, 422);
+    }
     // Workers AI 免费层日配额耗尽（4006 neurons exhausted）：
     // 额度判定在入口，没产生推理，把预占的那一格还回去，别让额度耗尽时的失败把当天配额也耗光；
     // 同时立旗（img:alert:<UTC日>），radar 的预警巡检读到就发邮件
-    if (String(err.message || '').includes('4006') || err.code === 4006) {
+    if (msg.includes('4006') || err.code === 4006) {
       if (quotaReserved) await refundQuota(env);
       await flagQuotaExhausted(env);
       return json({

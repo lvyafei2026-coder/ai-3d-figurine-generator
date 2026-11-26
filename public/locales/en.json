@@ -104,6 +104,7 @@
   "errNetwork": "Network error. Please try again.",
   "errRateLimit": "Too many requests. Please wait a minute.",
   "errQuota": "Today's free quota is used up. Please come back tomorrow.",
+  "errFlagged": "This photo was blocked by the image safety filter. Please try again, or upload a different photo.",
   "sceneLabel": "Display scene",
   "sceneStudio": "Studio",
   "sceneShelf": "Shelf",

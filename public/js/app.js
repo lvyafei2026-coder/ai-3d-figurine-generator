@@ -191,8 +191,13 @@ async function generate() {
 
     const data = await res.json();
     if (!res.ok || !data.image) {
-      const detail = data.code ? ' (' + data.code + ')' : '';
       setStage('preview');
+      if (data.code === 'FLAGGED') {
+        showError(tr.errFlagged || 'This photo was blocked by the image safety filter. '
+          + 'Please try again, or upload a different photo.');
+        return;
+      }
+      const detail = data.code ? ' (' + data.code + ')' : '';
       showError((data.error || (tr.errGeneric || 'Generation failed.')) + detail);
       return;
     }
