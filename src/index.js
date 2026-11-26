@@ -11,6 +11,16 @@ export default {
       return env.ASSETS.fetch(new URL('/3d-print-guide.html', url.origin));
     }
 
+    const seoPages = {
+      '/action-figure-generator': '/seo/action-figure-generator.html',
+      '/photo-to-action-figure': '/seo/photo-to-action-figure.html',
+      '/ai-chibi-figure-generator': '/seo/ai-chibi-figure-generator.html'
+    };
+    const seoAsset = seoPages[(url.pathname.endsWith('/') ? url.pathname.slice(0, -1) : url.pathname)];
+    if (seoAsset) {
+      return env.ASSETS.fetch(new URL(seoAsset, url.origin));
+    }
+
     return env.ASSETS.fetch(request);
   }
 };
