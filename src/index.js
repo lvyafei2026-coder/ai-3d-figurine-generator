@@ -104,7 +104,7 @@ const SCENE_PROMPTS = {
 //     余 ~2.1k 给 music 封面 / 3b 文案站 / 突发。
 //   两站共用一个 KV namespace（QUOTA_KV），靠 key 前缀区分，不各算各的。
 //   撞账户 4006 时写 img:alert:<UTC日> 旗——radar 的预警巡检每 2 小时读一次并发邮件。
-const DAILY_LIMIT = 12;
+const DAILY_LIMIT = 30;
 const QUOTA_PREFIX = 'img:figurine:';
 
 function todayKey() {
@@ -189,6 +189,10 @@ async function handleGenerate(request, env) {
     });
 
     if (!response || !response.image) {
+      if (quotaReserved) {
+        await refundQuota(env);
+        quotaReserved = false;
+      }
       return json({ error: 'Generation failed. Please try again.' }, 500);
     }
 
@@ -221,6 +225,10 @@ async function handleGenerate(request, env) {
         error: "Today's free quota is used up. Please come back tomorrow.",
         code: 'QUOTA_EXCEEDED'
       }, 429);
+    }
+    if (quotaReserved) {
+      await refundQuota(env);
+      quotaReserved = false;
     }
     return json({
       error: 'Processing failed.',
