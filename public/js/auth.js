@@ -42,11 +42,8 @@
   function log(msg) {
     if (DEBUG && window.console) console.log('[auth] ' + msg);
   }
-  function zh() {
-    return String(document.documentElement.lang || '').toLowerCase().indexOf('zh') === 0;
-  }
   function btnLabel() {
-    return zh() ? '使用 Google 账号登录' : 'Sign in with Google';
+    return 'Sign in with Google';
   }
   function getUser() {
     try { return JSON.parse(localStorage.getItem(USER_KEY) || 'null'); } catch (e) { return null; }
@@ -71,7 +68,7 @@
     var out = document.createElement('button');
     out.type = 'button';
     out.textContent = '\u00d7';
-    out.title = zh() ? '退出登录' : 'Sign out';
+    out.title = 'Sign out';
     out.setAttribute('aria-label', out.title);
     out.addEventListener('click', function () {
       store(null);
@@ -94,7 +91,7 @@
     nudgeEl.className = 'auth-nudge';
     nudgeEl.setAttribute('role', 'status');
     var txt = document.createElement('span');
-    txt.textContent = zh() ? '用 Google 账号一键登录，无需注册' : 'One click with Google, no signup';
+    txt.textContent = 'One click with Google, no signup';
     var x = document.createElement('button');
     x.type = 'button';
     x.textContent = '\u00d7';
@@ -127,7 +124,7 @@
 
   function currentHl() {
     var m = String(document.documentElement.lang || '').toLowerCase();
-    return m.indexOf('zh') === 0 ? 'zh-CN' : 'en';
+    return 'en';
   }
   function loadGsi(cb) {
     var hl = currentHl();
@@ -204,9 +201,7 @@
     btn.addEventListener('click', function () {
       loadGsi(function (err) {
         if (err) {
-          alert(zh()
-            ? 'Google 登录组件加载失败，请检查网络或广告拦截插件后刷新重试。'
-            : 'Could not load Google sign-in. Check your network or ad blocker, then reload.');
+          alert('Could not load Google sign-in. Check your network or ad blocker, then reload.');
           return;
         }
         mountButton(slot);
@@ -245,9 +240,4 @@
 
   render();
 
-  // 页面语言切换后重渲染（视觉层文案跟随页面语言）
-  var langSel = document.getElementById('langSelect');
-  if (langSel) langSel.addEventListener('change', function () {
-    setTimeout(function () { hideNudge(); render(); }, 80);
-  });
 })();
