@@ -10,7 +10,7 @@ A Cloudflare Worker that turns a photo into a 3D figurine style image using Work
 - Runs on Cloudflare Workers AI — no API keys
 - Built-in rate limiting (20 requests/min per IP)
 - Photo is not stored
-- Multi-language interface (EN + ZH)
+- English-only interface
 
 ## Setup
 
