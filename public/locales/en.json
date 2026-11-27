@@ -1,7 +1,7 @@
 {
   "trustSignup": "No signup",
   "trustWatermark": "No watermark",
-  "trustFree": "Free daily quota",
+  "trustFree": "3 daily generations",
   "trustPrivate": "Photos not stored",
   "proofTitle": "One photo, three collectibles",
   "proofSub": "Every image below was generated from the same uploaded photo by this tool. No mockups, no Photoshop.",
@@ -111,5 +111,7 @@
   "sceneGaming": "Gaming",
   "afSceneT": "Scene suffixes",
   "related4Title": "3D printing guide",
-  "related4Text": "Turn your figure into a real physical figurine — image-to-3D tools, printing options, and real costs."
+  "related4Text": "Turn your figure into a real physical figurine — image-to-3D tools, printing options, and real costs.",
+  "dailyLimitRemaining": "{remaining} of 3 generations remaining today.",
+  "dailyLimitReached": "You've used all 3 generations available on this browser today. Come back after 00:00 UTC."
 }
