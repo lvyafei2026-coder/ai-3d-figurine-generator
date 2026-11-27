@@ -97,13 +97,11 @@ const SCENE_PROMPTS = {
   gaming: 'on a desk in a gaming room, blurred RGB-lit monitor and keyboard behind, cool neon ambient light'
 };
 
-// 全局每日生成上限：账户 Workers AI 免费层 10,000 neurons/天（UTC 日切），全站群共享。
-//   flux-2-klein-4b 1024x1024 实测单张约 250-400 neurons（按 330 估）。
-//   2026-11-04 二次切分：radar 的 autopilot 自动分析停用（额度让给产品站），本站 8 → 12 张。
-//     本站出图 12 张 ≈4.0k + creative 出图 8 张 ≈2.6k + radar 手动 5 次 ≈1.3k，
-//     余 ~2.1k 给 music 封面 / 3b 文案站 / 突发。
-//   两站共用一个 KV namespace（QUOTA_KV），靠 key 前缀区分，不各算各的。
-//   撞账户 4006 时写 img:alert:<UTC日> 旗——radar 的预警巡检每 2 小时读一次并发邮件。
+// Toolara Figurine daily shared cap: temporarily 30 successful generations reserved per UTC day.
+//   This is a per-site KV cap, not a guarantee: the Cloudflare Workers AI account-level neuron
+//   allowance is shared with other tools and may be exhausted before this cap is reached.
+//   Keep the 4006 alert flag below so account-level exhaustion can still be monitored.
+//   Two sites share QUOTA_KV; prefixes keep their site-level counters separate.
 const DAILY_LIMIT = 30;
 const QUOTA_PREFIX = 'img:figurine:';
 
