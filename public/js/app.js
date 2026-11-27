@@ -16,6 +16,43 @@ const previewHint = document.getElementById('previewHint');
 const loadingHint = document.getElementById('loadingHint');
 const resultBar = document.getElementById('resultBar');
 const resultDisclaimer = document.getElementById('resultDisclaimer');
+ 
+const DAILY_CLIENT_LIMIT = 3;
+const DAILY_USAGE_KEY_PREFIX = 'toolara-figurine-daily-';
+
+function getDailyUsage() {
+  const day = new Date().toISOString().slice(0, 10);
+  try {
+    const count = Number.parseInt(localStorage.getItem(DAILY_USAGE_KEY_PREFIX + day) || '0', 10);
+    return { day, count: Number.isFinite(count) ? Math.max(0, count) : 0 };
+  } catch (e) {
+    return { day, count: 0 };
+  }
+}
+
+function recordDailyUsage() {
+  const usage = getDailyUsage();
+  const nextCount = usage.count + 1;
+  try {
+    localStorage.setItem(DAILY_USAGE_KEY_PREFIX + usage.day, String(nextCount));
+  } catch (e) {
+    // Client-side limits are best-effort when browser storage is unavailable.
+  }
+  updateDailyLimitNotice();
+  return nextCount;
+}
+
+function updateDailyLimitNotice() {
+  const notice = document.getElementById('dailyLimitNotice');
+  if (!notice) return;
+  const usage = getDailyUsage();
+  const remaining = Math.max(0, DAILY_CLIENT_LIMIT - usage.count);
+  const tr = t();
+  notice.textContent = remaining > 0
+    ? (tr.dailyLimitRemaining || '{remaining} of 3 generations remaining today.').replace('{remaining}', String(remaining))
+    : (tr.dailyLimitReached || "You've used all 3 generations available on this browser today. Come back after 00:00 UTC.");
+}
+
 
 uploadZone.addEventListener('click', () => fileInput.click());
 uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('dragover'); });
@@ -168,6 +205,14 @@ async function generate() {
     return;
   }
 
+  const usage = getDailyUsage();
+  if (usage.count >= DAILY_CLIENT_LIMIT) {
+    setStage('preview');
+    showError(tr.dailyLimitReached || "You've used all 3 generations available on this browser today. Come back after 00:00 UTC.");
+    updateDailyLimitNotice();
+    return;
+  }
+
   errorEl.style.display = 'none';
   generateBtn.disabled = true;
   setStage('loading');
@@ -178,6 +223,7 @@ async function generate() {
     formData.append('scene', currentScene);
     formData.append('image_0', selectedFile);
 
+    recordDailyUsage();
     const res = await fetch(base + '/api/generate', {
       method: 'POST',
       body: formData
@@ -263,6 +309,8 @@ function showError(msg) {
 }
 
 function t() { return (window.__i18n && window.__i18n.t) || {}; }
+
+updateDailyLimitNotice();
 
 window.generate = generate;
 window.clearImage = clearImage;
