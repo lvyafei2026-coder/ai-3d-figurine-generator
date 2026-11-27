@@ -73,7 +73,7 @@
   "afOutro": "Tip: the \"no signup, no watermark\" part matters more than the prompt wording — most tools that accept these prompts put a watermark on the free result.",
   "faqTitle": "Frequently asked questions",
   "faq1q": "Is this tool free?",
-  "faq1a": "Yes. It runs on Cloudflare Workers AI with a free daily quota. Normal use won't hit limits.",
+  "faq1a": "You can make up to 3 generation requests per day in this browser. The limit resets at 00:00 UTC. A separate site-wide capacity limit may also apply.",
   "faq6q": "Is this an AI action figure generator?",
   "faq6a": "Yes. The Action figure preset renders you as a collectible figure in blister packaging, and the Doll preset renders a soft-vinyl doll. Both work from a photo — you don't have to write a prompt.",
   "faq7q": "Is the result a real 3D model?",
