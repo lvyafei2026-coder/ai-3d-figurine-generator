@@ -297,3 +297,12 @@ li { margin-bottom: 8px; line-height: 1.65; }
 .auth-hit iframe { display: block; }
 .auth-slot:focus-within .auth-look { box-shadow: 0 0 0 2px rgba(66,133,244,0.5); }
 @media (max-width: 420px) { .auth-look { font-size: 13px; gap: 8px; padding: 0 10px; } }
+
+ 
+.daily-limit-notice {
+  margin: 10px 0 0;
+  color: #64748b;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-align: center;
+}
