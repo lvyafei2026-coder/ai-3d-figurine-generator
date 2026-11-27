@@ -12,7 +12,9 @@ export default {
       '/guides/best-photo-for-ai-figurine': '/guides/best-photo-for-ai-figurine.html',
       '/guides/ai-action-figure-prompt-ideas': '/guides/ai-action-figure-prompt-ideas.html',
       '/guides/ai-figurine-style-comparison': '/guides/ai-figurine-style-comparison.html',
-      '/guides/fix-ai-figurine-results': '/guides/fix-ai-figurine-results.html'
+      '/guides/fix-ai-figurine-results': '/guides/fix-ai-figurine-results.html',
+      '/guides/ai-figurine-gift-ideas': '/guides/ai-figurine-gift-ideas.html',
+      '/guides/figurine-scene-guide': '/guides/figurine-scene-guide.html'
     };
     const cleanPath = url.pathname.endsWith('/') ? url.pathname.slice(0, -1) : url.pathname;
     if (cleanPath === '/3d-print-guide') {
