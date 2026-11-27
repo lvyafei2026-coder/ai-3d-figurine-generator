@@ -6,9 +6,20 @@ export default {
       return handleApi(request, env, url);
     }
 
-    // Clean URL for the guide page (html_handling is "none", so extensionless paths would hit the SPA fallback)
-    if (url.pathname === '/3d-print-guide') {
+    // Clean URLs for editorial guides (sitemap and robots are handled centrally by tool-proxy)
+    const guidePages = {
+      '/guides': '/guides/index.html',
+      '/guides/best-photo-for-ai-figurine': '/guides/best-photo-for-ai-figurine.html',
+      '/guides/ai-action-figure-prompt-ideas': '/guides/ai-action-figure-prompt-ideas.html',
+      '/guides/ai-figurine-style-comparison': '/guides/ai-figurine-style-comparison.html',
+      '/guides/fix-ai-figurine-results': '/guides/fix-ai-figurine-results.html'
+    };
+    const cleanPath = url.pathname.endsWith('/') ? url.pathname.slice(0, -1) : url.pathname;
+    if (cleanPath === '/3d-print-guide') {
       return env.ASSETS.fetch(new URL('/3d-print-guide.html', url.origin));
+    }
+    if (guidePages[cleanPath]) {
+      return env.ASSETS.fetch(new URL(guidePages[cleanPath], url.origin));
     }
 
     const seoPages = {
