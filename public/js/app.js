@@ -223,7 +223,6 @@ async function generate() {
     formData.append('scene', currentScene);
     formData.append('image_0', selectedFile);
 
-    recordDailyUsage();
     const res = await fetch(base + '/api/generate', {
       method: 'POST',
       body: formData
@@ -254,7 +253,8 @@ async function generate() {
       return;
     }
 
-    resultImg.src = 'data:image/png;base64,' + data.image;
+    recordDailyUsage();
+        resultImg.src = 'data:image/png;base64,' + data.image;
     setStage('result');
     if (window.innerWidth <= 900) stage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (err) {
