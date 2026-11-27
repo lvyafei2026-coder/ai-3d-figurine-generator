@@ -2,6 +2,15 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    // Retire the former Chinese locale URL and keep one canonical English entry point.
+    const appMarker = '/ai-3d-figurine-generator';
+    const markerIndex = url.pathname.indexOf(appMarker);
+    const appBase = markerIndex >= 0 ? url.pathname.slice(0, markerIndex + appMarker.length) : '';
+    const appPath = markerIndex >= 0 ? url.pathname.slice(markerIndex + appMarker.length) : url.pathname;
+    if (appPath === '/zh' || appPath.startsWith('/zh/')) {
+      return Response.redirect(new URL(appBase + '/', url.origin), 301);
+    }
+
     if (url.pathname.includes('/api/') && request.method === 'POST') {
       return handleApi(request, env, url);
     }
