@@ -56,7 +56,7 @@
     {
       "@type": "Question",
       "name": "Is this tool free?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. It runs on Cloudflare Workers AI with a free daily quota. Normal use won't hit limits." }
+      "acceptedAnswer": { "@type": "Answer", "text": "You can make up to 3 generation requests per day in this browser. The limit resets at 00:00 UTC. A separate site-wide capacity limit may also apply." }
     },
     {
       "@type": "Question",
@@ -190,6 +190,7 @@
       </div>
 
       <button class="calc" type="button" id="generateBtn" onclick="generate()" data-i18n="calcBtn" disabled>Generate action figure</button>
+      <p id="dailyLimitNotice" class="daily-limit-notice" aria-live="polite">3 generations per day on this browser.</p>
 
       <div id="error" class="error" style="display:none;"></div>
     </section>
@@ -416,7 +417,7 @@
     <div class="faq-list">
       <details class="faq-item" open>
         <summary data-i18n="faq1q">Is this tool free?</summary>
-        <p data-i18n="faq1a">Yes. It runs on Cloudflare Workers AI with a free daily quota. Normal use won't hit limits.</p>
+        <p data-i18n="faq1a">You can make up to 3 generation requests per day in this browser. The limit resets at 00:00 UTC. A separate site-wide capacity limit may also apply.</p>
       </details>
       <details class="faq-item">
         <summary data-i18n="faq6q">Is this an AI action figure generator?</summary>
