@@ -2,6 +2,10 @@ name = "ai-3d-figurine-generator"
 main = "src/index.js"
 compatibility_date = "2026-09-27"
 
+# Worker Previews require an explicit configuration block.
+# Keep this empty for now: no production KV or rate-limit resources are shared.
+previews = {}
+
 [ai]
 binding = "AI"
 
